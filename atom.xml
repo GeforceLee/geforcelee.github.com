@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
+  <title><![CDATA[GeforceLee Blog]]></title>
   <link href="http://GeforceLee.github.io/atom.xml" rel="self"/>
   <link href="http://GeforceLee.github.io/"/>
-  <updated>2013-07-10T21:31:07+08:00</updated>
+  <updated>2013-07-11T09:57:59+08:00</updated>
   <id>http://GeforceLee.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[GeforceLee]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -18,7 +18,7 @@
     <link href="http://GeforceLee.github.io/blog/2013/07/10/title/"/>
     <updated>2013-07-10T12:22:00+08:00</updated>
     <id>http://GeforceLee.github.io/blog/2013/07/10/title</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<p>nihao</p>
 ]]></content>
   </entry>
   
