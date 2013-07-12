@@ -4,7 +4,7 @@
   <title><![CDATA[GeforceLee's Blog]]></title>
   <link href="http://GeforceLee.github.io/atom.xml" rel="self"/>
   <link href="http://GeforceLee.github.io/"/>
-  <updated>2013-07-12T13:45:44+08:00</updated>
+  <updated>2013-07-12T13:50:23+08:00</updated>
   <id>http://GeforceLee.github.io/</id>
   <author>
     <name><![CDATA[GeforceLee]]></name>
@@ -12,15 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[test]]></title>
-    <link href="http://GeforceLee.github.io/blog/2013/07/11/test/"/>
-    <updated>2013-07-11T13:53:00+08:00</updated>
-    <id>http://GeforceLee.github.io/blog/2013/07/11/test</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[Redis系列教程7]]></title>
@@ -34,6 +25,9 @@
 <h1>第六章 管理</h1>
 
 <p>最后一章我们要了解对运行的Redis进行管理。这不是一个Redis管理综合的指南。在这我们只能了解一些基础的知识。</p>
+
+<!-- more -->
+
 
 <h2>配置</h2>
 
@@ -112,6 +106,9 @@ rename-command FLUSHALL 1041285018a942a4922cbf76623b741e
 <p>在Redis2.6中，包含了一个Lua的解析器，让开发这可以在Redis内部写更好的查询语句。没错这很像大型的关系数据库中的存储过程。</p>
 
 <p>这个最难的就是学习Lua，但是Lua是一个比其他流行语言小很多的脚本语言，他有很好的文档，有积极的社区。这章不会详细介绍Lua，但是会有一些有用的例子会被提到。</p>
+
+<!-- more -->
+
 
 <h2>为什么?</h2>
 
@@ -224,6 +221,9 @@ return friends
 <h1>第三章  基于数据结构</h1>
 
 <p>Redis提供了五种数据结构，这有一些不是数据结构的命令。我们已经看到一些有用的命令：info，select，flushdb，multi，exec，discard，watch和kyes。这章我们会了解一些其他的重要的命令。</p>
+
+<!-- more -->
+
 
 <h2>过期</h2>
 
@@ -386,6 +386,9 @@ hset bug:9338 details ”{id: 9338, ....}”
 <p>在之前的章节，我们了解了Redis的五种数据结构，以及了解一些我可以用这五个数据结构能解决的问题。接下来，我们将要看到一些新的功能，命令以及一些设计模式。</p>
 
 <h2>O标识符（时间复杂度）</h2>
+
+<!-- more -->
+
 
 <p>贯穿这个教程，我们一直用O表示 从O（n）到O(1)。在Redis，这个会告诉我们一个命令有多快。</p>
 
@@ -575,6 +578,9 @@ hset  bugs:1233 2 "{id:2,account:1233,subject:'...'}"
 
 <p>没有什么比有趣的事情和尝试新事物更重要的。你可以通过使用 <code>flushdb</code> 命令清楚所有values，所以请不要轻易使用。</p>
 
+<!-- more -->
+
+
 <h2>String</h2>
 
 <p>string是Redis中最基础的数据结构。当你考虑用key-value是应当考虑string。不要看名字混淆，value可是任何数据。</p>
@@ -732,6 +738,9 @@ sismember friends:leto vladimir
 
 <p>用特殊的数据结构对待专门的问题？我们应该怎么code？你不能在每块数据用hashtable，也不能用标量变量。对于我，那就是定义Redis的途径。如果你正在处理标量，链表，哈希表，集合，为什么不把他存成标量，链表，哈希表，结合？为什么我们检查一个是否存在那么复杂的去调一个 exists（key），他的时间复杂度远大于O(1）</p>
 
+<!-- more -->
+
+
 <h2>The BUilding Blocks</h2>
 
 <h3>数据库</h3>
@@ -818,6 +827,9 @@ sismember friends:leto vladimir
 
 <p>近些年来，关于查询存储数据发展到难以相信的地步。关系型数据库并不是到哪都好使的了，或者说现在的数据的生态系统并不是很相同。</p>
 
+<!-- more -->
+
+
 <p>纵观这么多新工具和解决方案，对于我来说，Redis是最兴奋的。为什么呢？</p>
 
 <ul>
@@ -843,7 +855,10 @@ sismember friends:leto vladimir
 <p>对于Mac和*nix用户，从源码build是最好的选择。命令可以带着最新的版本号。我所的版本都在<a href="http://redis.io/download">http://redis.io/download</a>。当写这个教程的时候最新的版本是2.6.2
 安装命令：</p>
 
-<pre><code>wget http://redis.googlecode.com/files/redis-2.6.2.tar.gz   tar xzf redis-2.6.2.tar.gz  cd redis-2.6.2  make
+<pre><code>wget http://redis.googlecode.com/files/redis-2.6.2.tar.gz
+tar xzf redis-2.6.2.tar.gz
+cd redis-2.6.2
+make
 </code></pre>
 
 <p>或者Reids可以通过包管理（可以通过Homebrew 安装）</p>

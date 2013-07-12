@@ -2,39 +2,35 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://GeforceLee.github.io/blog/2013/01/21/iOSCrashReport/</loc>
-        <lastmod>2013-07-11T14:52:16+08:00</lastmod>
+        <lastmod>2013-07-12T13:47:46+08:00</lastmod>
     </url>
     <url>
         <loc>http://GeforceLee.github.io/blog/2013/05/03/Redis-Tutorials-1/</loc>
-        <lastmod>2013-07-12T13:45:06+08:00</lastmod>
+        <lastmod>2013-07-12T13:49:17+08:00</lastmod>
     </url>
     <url>
         <loc>http://GeforceLee.github.io/blog/2013/05/03/Redis-Tutorials-2/</loc>
-        <lastmod>2013-07-12T13:45:01+08:00</lastmod>
+        <lastmod>2013-07-12T13:49:29+08:00</lastmod>
     </url>
     <url>
         <loc>http://GeforceLee.github.io/blog/2013/05/04/Redis-Tutorials-3/</loc>
-        <lastmod>2013-07-12T13:44:57+08:00</lastmod>
+        <lastmod>2013-07-12T13:49:35+08:00</lastmod>
     </url>
     <url>
         <loc>http://GeforceLee.github.io/blog/2013/05/06/Redis-Tutorials-4/</loc>
-        <lastmod>2013-07-12T13:44:53+08:00</lastmod>
+        <lastmod>2013-07-12T13:49:47+08:00</lastmod>
     </url>
     <url>
         <loc>http://GeforceLee.github.io/blog/2013/05/06/Redis-Tutorials-5/</loc>
-        <lastmod>2013-07-12T13:44:49+08:00</lastmod>
+        <lastmod>2013-07-12T13:49:52+08:00</lastmod>
     </url>
     <url>
         <loc>http://GeforceLee.github.io/blog/2013/05/06/Redis-Tutorials-6/</loc>
-        <lastmod>2013-07-12T13:44:41+08:00</lastmod>
+        <lastmod>2013-07-12T13:49:57+08:00</lastmod>
     </url>
     <url>
         <loc>http://GeforceLee.github.io/blog/2013/05/07/Redis-Tutorials-7/</loc>
-        <lastmod>2013-07-12T13:44:44+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://GeforceLee.github.io/blog/2013/07/11/test/</loc>
-        <lastmod>2013-07-12T13:43:30+08:00</lastmod>
+        <lastmod>2013-07-12T13:50:06+08:00</lastmod>
     </url>
     <url>
         <loc>http://GeforceLee.github.io/about/</loc>
@@ -42,11 +38,11 @@
     </url>
     <url>
         <loc>http://GeforceLee.github.io/blog/archives/</loc>
-        <lastmod>2013-07-12T13:45:06+08:00</lastmod>
+        <lastmod>2013-07-12T13:50:06+08:00</lastmod>
     </url>
     <url>
         <loc>http://GeforceLee.github.io/</loc>
-        <lastmod>2013-07-12T13:45:06+08:00</lastmod>
+        <lastmod>2013-07-12T13:50:06+08:00</lastmod>
     </url>
     <url>
         <loc>http://GeforceLee.github.io/robots.txt</loc>
