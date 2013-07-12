@@ -1,0 +1,297 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Redis系列教程6 - GeforceLee's Blog</title>
+    <meta name="author" content="GeforceLee">
+    
+	<meta name="description" content="Lua 脚本">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="GeforceLee's Blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+
+    <!-- remove or comment it to disable ajaxification -->   
+    <script src="/javascripts/ajaxify.js"></script>
+   
+    
+    
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-37558768-2']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+</head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        GeforceLee
+    </div>
+</h1>
+<br>
+
+<ul id="social-links" style="text-align:center">
+  
+  <!-- GitHub -->
+  <li>
+  <a href="https://github.com/GeforceLee" class="github" title="Github"></a>
+  </li>
+  
+  
+  
+  
+  <!-- Twitter -->
+  <li>
+  <a href="http://www.twitter.com/GeforceLee" class="twitter" title="Twitter"></a>
+  </li>
+  
+  
+  
+  
+  
+  
+  <!-- weibo -->
+  <li>
+  <a href="http://www.weibo.com/314004856" class="weibo" title="Weibo"></a>
+  </li>
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">主页</a></li>
+	<li id="ajax"><a href="/blog/archives/index.html">Blog</a></li>
+     <li><a href="/about">关于我</a></li>
+    
+    <li>
+    <div id="dark">
+        <form method="get" action="/search.html" id="search">
+            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload --> 
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">Redis系列教程6</h2>
+	<div class="entry-content"><h1>Redis系列教程6</h1>
+
+<p>2013-05-06 By</p>
+
+<h1>第五章 Lua脚本</h1>
+
+<p>在Redis2.6中，包含了一个Lua的解析器，让开发这可以在Redis内部写更好的查询语句。没错这很像大型的关系数据库中的存储过程。</p>
+
+<p>这个最难的就是学习Lua，但是Lua是一个比其他流行语言小很多的脚本语言，他有很好的文档，有积极的社区。这章不会详细介绍Lua，但是会有一些有用的例子会被提到。</p>
+
+<h2>为什么?</h2>
+
+<p>在开始用Lua脚本之前，你会想知道为什么用他。很多开发者不喜欢传统的存储过程，这有什么不同吗？一个简短的答案：NO。不正当的运用，Redis的Lua脚本结果很难测试，因为有复杂的业务逻辑在里面。</p>
+
+<p>适当的运用，可以有效的提高效率以及简化代码。在一个方法内，组合多命令，打包很多简单逻辑。代码会变得简单。会提高性能，因为去掉了一些中间过程的结果。最后的结果会在脚本中计算。</p>
+
+<p>在接下来的例子中会很好解释上述内容。</p>
+
+<h2>Eval</h2>
+
+<p><code>eval</code>命令会执行Lua脚本。我们会运用很多的参数，让我们来看一个例子（在Ruby中执行，因为在命令行中执行多行不太好）：</p>
+
+<pre><code>script = &lt;&lt;-eos
+  local friend_names = redis.call(’smembers’, KEYS[1])
+  local friends = {}
+  for i = 1, #friend_names do
+    local friend_key = ’user:’ .. friend_names[i]
+    local gender = redis.call(’hget’, friend_key, ’gender’)
+    if gender == ARGV[1] then
+        table.insert(friends, redis.call(’hget’, friend_key, ’details’))
+        end
+  end
+return friends eos
+
+Redis.new.eval(script, [’friends:leto’], [’m’])
+</code></pre>
+
+<p>在上面的例子中我们获得Leto的所有男性朋友。我们用redis.call(&ldquo;command&rdquo;,ARG1,ARG2,&hellip;)来调用Redis命令。</p>
+
+<p>如果你对Lua陌生，你要仔细看每一行代码。{}是创建一个空table（能代表array或dictionary），#TABLE 是获得Table中的元素的数量。 <code>..</code>连接字符串用。</p>
+
+<p><code>eval</code>实际上接收4个参数。第二个蚕食应该是key 的数量。然而Ruby自动的帮我们填上了。考虑下：</p>
+
+<pre><code>eval ”.....” ”friends:leto” ”m”
+vs
+eval ”.....” 1 ”friends:leto” ”m”
+</code></pre>
+
+<p>在第一个（错误）的例子中，Redis怎么会知道有多少个是key，有多少是参数呢？在第二个中，就明确了。</p>
+
+<p>这会带来第二个问题：为什么必须明确列出keys？在Redis中要知道每个命令运行的时间，那些keys是需要的。这会让像Redis Cluster分布请求在多个Redis服务器中。你可能发现我们之前的例子是动态的读取key。<code>hget</code>获得Leto的所有男性朋友。这是因为提前列出key只是一个建议，并不是强制规则。上面的代码我们会很好的在一个单例中运行，但不能在尚未发布的Redis Cluster中。</p>
+
+<h2>脚本管理</h2>
+
+<p>即使通过<code>eval</code>可以把脚本缓存到Redis中，但是每次执行都要传递一个body并不理想。作为替代你可以注册一个脚本在Redis，然后用key执行。用<code>script load</code> 命令，他能返回一个SHA1值：</p>
+
+<pre><code>redis = Redis.new
+script_key = redis.script(:load, "THE_SCRIPT")
+</code></pre>
+
+<p>如果想加载这个脚本，我们可以用<code>evalsha</code> :</p>
+
+<pre><code>redis.evalsha(script_key, ['friends:leto'], ['m'])
+</code></pre>
+
+<p><code>script kill</code>,<code>script flush</code>和<code>script exists</code>是一些管理Lua 脚本的命令。他们分别是：杀死运行的脚本，删除缓存中的所有脚本，和看一个脚本是否在缓存中。</p>
+
+<h2>Libraries</h2>
+
+<p>Redis的Lua提供了一个很有用库，当<code>table.lib</code>,<code>string.lib</code>,<code>math.lib</code>都是很有用的。<code>cjson.lib</code>值得拿出来说一下：</p>
+
+<pre><code>redis.evalsha ".....", [KEY1], [JSON.fast_generate({gender: 'm', ghola: true})
+</code></pre>
+
+<p>你也可以反序列化在Lua脚本中：</p>
+
+<pre><code>local arguments = cjson.decode(ARGV[1])
+</code></pre>
+
+<p>当然，JSON库也可以在Redis直接解析存储。之前的例子也可以写成这样:</p>
+
+<pre><code>local friend_names = redis.call('smembers', KEYS[1])
+local friends = {}
+for i = 1, #friend_names do
+    local friend_raw = redis.call('get', 'user:' .. friend_names[i])
+    local friend_parsed = cjson.decode(friend_raw)
+        if friend_parsed.gender == ARGV[1] then
+            table.insert(friends, friend_raw)
+    end
+end
+return friends
+</code></pre>
+
+<p>从指定的hash字段里获得性别可以替换成直接从好友数据里获得。（这会比较慢。）</p>
+
+<h2>原子</h2>
+
+<p>因为Redis是单线程的，所有你不用担心你的Lua脚本会被别的Redis命令打断。一个最值得一提的优势就是key不会在执行的时候过期。如果一个key出现在开始脚本时，他会在任何点出现，除非你删除它。</p>
+
+<h2>管理</h2>
+
+<p>下一章我们会详细的介绍Redis的管理和配置，但是现在，简单的了解<code>lua-time-limit</code>定义了一个Lua脚本如许执行的时间。默认的是5秒。</p>
+
+<h2>小节</h2>
+
+<p>在这章我们介绍了Lua脚本。他可以在任何地方用到，但是谨慎的实现自己的功能，不要滥用。他就会使你的代码简洁，并且能提高效率。Lua脚本也可以像其他Reids命令一样做一些限制。如果可能尽可能的多练习。</p>
+</div>
+
+<div class="meta">
+	
+		<span class="comments"><a href="/blog/2013/05/06/Redis-Tutorials-6/#disqus_thread">Comments</a></span>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2013
+
+    GeforceLee
+. Powered by <a href="http://octopress.org">Octopress</a> | 
+    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'geforceleeoctopress';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://GeforceLee.github.io/blog/2013/05/06/Redis-Tutorials-6/';
+        var disqus_url = 'http://GeforceLee.github.io/blog/2013/05/06/Redis-Tutorials-6/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

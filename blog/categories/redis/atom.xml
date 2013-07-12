@@ -1,187 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE HTML>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>GeforceLee's Blog</title>
-    <meta name="author" content="GeforceLee">
-    
-	<meta name="description" content=" Published on: Jul 11th, 2013 Tags: Comments ">
-	
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-	<link href="/atom.xml" rel="alternate" title="GeforceLee's Blog" type="application/atom+xml">
-	<link rel="canonical" href="">
-	<link href="/favicon.ico" rel="shortcut icon">
-    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-
-    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
-
-    <!-- remove or comment it to disable ajaxification -->   
-    <script src="/javascripts/ajaxify.js"></script>
-   
-    
-    
-	<script type="text/javascript">
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-37558768-2']);
-		_gaq.push(['_trackPageview']);
-
-		(function() {
-			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		})();
-	</script>
-
-
-</head>
-
-
-<body>
-    <div id="wrapper">
-    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
-<h1 class="animated bounceInDown">
-    <div id="headerbg">
-        GeforceLee
-    </div>
-</h1>
-<br>
-
-<ul id="social-links" style="text-align:center">
-  
-  <!-- GitHub -->
-  <li>
-  <a href="https://github.com/GeforceLee" class="github" title="Github"></a>
-  </li>
-  
-  
-  
-  
-  <!-- Twitter -->
-  <li>
-  <a href="http://www.twitter.com/GeforceLee" class="twitter" title="Twitter"></a>
-  </li>
-  
-  
-  
-  
-  
-  
-  <!-- weibo -->
-  <li>
-  <a href="http://www.weibo.com/314004856" class="weibo" title="Weibo"></a>
-  </li>
-  
-</ul>
-
-
-<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
-<ul id="nav">
-	<li id="ajax"><a href="/index.html">主页</a></li>
-	<li id="ajax"><a href="/blog/archives/index.html">Blog</a></li>
-     <li><a href="/about">关于我</a></li>
-    
-    <li>
-    <div id="dark">
-        <form method="get" action="/search.html" id="search">
-            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
-        </form>
-    </div>
-    </li>
-        
-</ul>
-
-
-
-
-</header>
-
-<div id="toload">
-<!-- begin toload --> 
-    <div id="content" class="inner">
-        
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/07/11/test/">
-		
-			Test</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
-
-
-
-
-
-
-
+  <title><![CDATA[Category: Redis | GeforceLee's Blog]]></title>
+  <link href="http://GeforceLee.github.io/blog/categories/redis/atom.xml" rel="self"/>
+  <link href="http://GeforceLee.github.io/"/>
+  <updated>2013-07-12T13:45:44+08:00</updated>
+  <id>http://GeforceLee.github.io/</id>
+  <author>
+    <name><![CDATA[GeforceLee]]></name>
+    <email><![CDATA[liyunlong880601@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
   
+  <entry>
+    <title type="html"><![CDATA[Redis系列教程7]]></title>
+    <link href="http://GeforceLee.github.io/blog/2013/05/07/Redis-Tutorials-7/"/>
+    <updated>2013-05-07T00:00:00+08:00</updated>
+    <id>http://GeforceLee.github.io/blog/2013/05/07/Redis-Tutorials-7</id>
+    <content type="html"><![CDATA[<h1>Category: Redis</h1>
 
-
-<time datetime="2013-07-11T13:53:00+08:00" pubdate data-updated="true">Jul 11<span>th</span>, 2013</time></div>
-      <div class="tags">Tags: 
-
-</div>
-    </div>
-		
-
-		
-		
-	</div>
-
-<div class="meta">
-	
-		<span class="comments"><a href="/blog/2013/07/11/test//index.html#disqus_thread">Comments</a></span>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/05/07/Redis-Tutorials-7/">
-		
-			Redis系列教程7</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-07T00:00:00+08:00" pubdate data-updated="true">May 7<span>th</span>, 2013</time></div>
-      <div class="tags">Tags: 
-
-
-	<a class='category' href='/blog/categories/redis/'>Redis</a>
-
-
-</div>
-    </div>
-		<h1>Redis系列教程7</h1>
-
-<p>2013-05-07 By</p>
+<p>2013-05-07 By </p>
 
 <h1>第六章 管理</h1>
 
@@ -247,52 +86,17 @@ rename-command FLUSHALL 1041285018a942a4922cbf76623b741e
 <h1>总结</h1>
 
 <p>Redis可以简单高效的为你存储数据。要好好的利用他就要系统的学习。</p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
-		<span class="comments"><a href="/blog/2013/05/07/Redis-Tutorials-7//index.html#disqus_thread">Comments</a></span>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/05/06/Redis-Tutorials-6/">
-		
-			Redis系列教程6</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
-
-
-
-
-
-
-
-
+]]></content>
+  </entry>
   
+  <entry>
+    <title type="html"><![CDATA[Redis系列教程6]]></title>
+    <link href="http://GeforceLee.github.io/blog/2013/05/06/Redis-Tutorials-6/"/>
+    <updated>2013-05-06T00:00:00+08:00</updated>
+    <id>http://GeforceLee.github.io/blog/2013/05/06/Redis-Tutorials-6</id>
+    <content type="html"><![CDATA[<h1>Category: Redis</h1>
 
-
-<time datetime="2013-05-06T00:00:00+08:00" pubdate data-updated="true">May 6<span>th</span>, 2013</time></div>
-      <div class="tags">Tags: 
-
-
-	<a class='category' href='/blog/categories/redis/'>Redis</a>
-
-
-</div>
-    </div>
-		<h1>Redis系列教程6</h1>
-
-<p>2013-05-06 By</p>
+<p>2013-05-06 By </p>
 
 <h1>第五章 Lua脚本</h1>
 
@@ -396,52 +200,17 @@ return friends
 <h2>小节</h2>
 
 <p>在这章我们介绍了Lua脚本。他可以在任何地方用到，但是谨慎的实现自己的功能，不要滥用。他就会使你的代码简洁，并且能提高效率。Lua脚本也可以像其他Reids命令一样做一些限制。如果可能尽可能的多练习。</p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
-		<span class="comments"><a href="/blog/2013/05/06/Redis-Tutorials-6//index.html#disqus_thread">Comments</a></span>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/05/06/Redis-Tutorials-5/">
-		
-			Redis系列教程5</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
-
-
-
-
-
-
-
-
+]]></content>
+  </entry>
   
+  <entry>
+    <title type="html"><![CDATA[Redis系列教程5]]></title>
+    <link href="http://GeforceLee.github.io/blog/2013/05/06/Redis-Tutorials-5/"/>
+    <updated>2013-05-06T00:00:00+08:00</updated>
+    <id>http://GeforceLee.github.io/blog/2013/05/06/Redis-Tutorials-5</id>
+    <content type="html"><![CDATA[<h1>Category: Redis</h1>
 
-
-<time datetime="2013-05-06T00:00:00+08:00" pubdate data-updated="true">May 6<span>th</span>, 2013</time></div>
-      <div class="tags">Tags: 
-
-
-	<a class='category' href='/blog/categories/redis/'>Redis</a>
-
-
-</div>
-    </div>
-		<h1>Redis系列教程5</h1>
-
-<p>2013-05-06 By</p>
+<p>2013-05-06 By </p>
 
 <h1>第三章  基于数据结构</h1>
 
@@ -591,52 +360,17 @@ hset bug:9338 details ”{id: 9338, ....}”
 <h2>小节</h2>
 
 <p>在这章我们关注非数据结构命令。这些命令因情况而定。不一定每个应用都会用到expiration，publication/subscription 或者排序。但是在这都有了了解。我们在这只用了其中一些命令。文档上会有全部的命令<a href="http://redis.io/commands">http://redis.io/commands</a></p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
-		<span class="comments"><a href="/blog/2013/05/06/Redis-Tutorials-5//index.html#disqus_thread">Comments</a></span>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/05/06/Redis-Tutorials-4/">
-		
-			Redis系列教程4</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
-
-
-
-
-
-
-
-
+]]></content>
+  </entry>
   
+  <entry>
+    <title type="html"><![CDATA[Redis系列教程4]]></title>
+    <link href="http://GeforceLee.github.io/blog/2013/05/06/Redis-Tutorials-4/"/>
+    <updated>2013-05-06T00:00:00+08:00</updated>
+    <id>http://GeforceLee.github.io/blog/2013/05/06/Redis-Tutorials-4</id>
+    <content type="html"><![CDATA[<h1>Category: Redis</h1>
 
-
-<time datetime="2013-05-06T00:00:00+08:00" pubdate data-updated="true">May 6<span>th</span>, 2013</time></div>
-      <div class="tags">Tags: 
-
-
-	<a class='category' href='/blog/categories/redis/'>Redis</a>
-
-
-</div>
-    </div>
-		<h1>Redis系列教程4</h1>
-
-<p>2013-05-06 By</p>
+<p>2013-05-06 By </p>
 
 <h1>第三章  利用数据结构</h1>
 
@@ -810,52 +544,17 @@ hset  bugs:1233 2 "{id:2,account:1233,subject:'...'}"
 <h2>小节</h2>
 
 <p>结合前一章，我们展示了Redis的一些强大的功能。还有很多其他的模式你可以构建自己的类型的数据。但重要的是要了解基本的数据结构，了解后用他们实现属于自己的。</p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
-		<span class="comments"><a href="/blog/2013/05/06/Redis-Tutorials-4//index.html#disqus_thread">Comments</a></span>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/05/04/Redis-Tutorials-3/">
-		
-			Redis系列教程3</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
-
-
-
-
-
-
-
-
+]]></content>
+  </entry>
   
+  <entry>
+    <title type="html"><![CDATA[Redis系列教程3]]></title>
+    <link href="http://GeforceLee.github.io/blog/2013/05/04/Redis-Tutorials-3/"/>
+    <updated>2013-05-04T00:00:00+08:00</updated>
+    <id>http://GeforceLee.github.io/blog/2013/05/04/Redis-Tutorials-3</id>
+    <content type="html"><![CDATA[<h1>Category: Redis</h1>
 
-
-<time datetime="2013-05-04T00:00:00+08:00" pubdate data-updated="true">May 4<span>th</span>, 2013</time></div>
-      <div class="tags">Tags: 
-
-
-	<a class='category' href='/blog/categories/redis/'>Redis</a>
-
-
-</div>
-    </div>
-		<h1>Redis系列教程3</h1>
-
-<p>2013-05-04 By</p>
+<p>2013-05-04 By </p>
 
 <h1>第二章  数据结构</h1>
 
@@ -1000,380 +699,7 @@ sismember friends:leto vladimir
 <h2>小结</h2>
 
 <p>这章我们主要了解了五种数据结构。Redis可以做比你想到的多得多的事情。一旦你了解了，你就会试图用Redis来解决一些问题。Redis提供了丰富的数据结构和方法，但没有必要全部掌握。要实现一个功能，可以用一些常用命令。</p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
-		<span class="comments"><a href="/blog/2013/05/04/Redis-Tutorials-3//index.html#disqus_thread">Comments</a></span>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/05/03/Redis-Tutorials-2/">
-		
-			Redis系列教程2</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
-
-
-
-
-
-
-
-
+]]></content>
+  </entry>
   
-
-
-<time datetime="2013-05-03T00:00:00+08:00" pubdate data-updated="true">May 3<span>rd</span>, 2013</time></div>
-      <div class="tags">Tags: 
-
-
-	<a class='category' href='/blog/categories/redis/'>Redis</a>
-
-
-</div>
-    </div>
-		<h1>Redis系列教程2</h1>
-
-<p>2013-05-03 By</p>
-
-<h1>第一章  基础</h1>
-
-<p>是什么让Redis变得特殊？他解决了什么样的问题？开发者需要注意些什么？在我回答这些问题之前，我们需要理解什么是Redis。</p>
-
-<p>Redis通常被描述成内存中key-value的数据库。我认为那是一个不准确的描述。Redis把所有数据放到内存中（大部分以字节形式），并且把数据持久化在磁盘上，这比简单的key-value存储多多了。你不要站在这错误的观点上，否则你对Redis的观点和解决问题都是狭隘的。</p>
-
-<p>事实上Redis暴露出5个不同的数据结构,其中之一是key-value的结构。了解这5个数据结构，他们怎么工作的，他们有什么样的方法，你能怎么用这些建立你们的模型才是关键。首先咱们先了解下数据结构。</p>
-
-<p>如果我们使用一种数据结构来描述关系世界，我们大概会说数据库中的一个结构&mdash;table。Tables复杂并且比较灵活，没有什么你不能模拟，存储，操作的。然而他也有一些本质上的缺点。特别是，不是所有的都是简单或者快速的。如果想要一个结构适用所有的结果，我们是不是要使用一个专门的结构呢？有一些事情我们不能做至少到现在我们做的不好，但是我们要增加简单性和效率。</p>
-
-<p>用特殊的数据结构对待专门的问题？我们应该怎么code？你不能在每块数据用hashtable，也不能用标量变量。对于我，那就是定义Redis的途径。如果你正在处理标量，链表，哈希表，集合，为什么不把他存成标量，链表，哈希表，结合？为什么我们检查一个是否存在那么复杂的去调一个 exists（key），他的时间复杂度远大于O(1）</p>
-
-<h2>The BUilding Blocks</h2>
-
-<h3>数据库</h3>
-
-<p>Redis有一个你熟悉的基础概念就是database。一个database包含一个数据的集合。一个数据库经典的案例就是把一个应用的所有数据与另一个应用的数据分开。</p>
-
-<p>在Redis，database被简单的定义为一个数字，默认的数字是0.如果你想换到不同的数据库你可以通过 select 命令。在终端里，敲入 <code>select 1</code> 。Redis会回应OK的信息和一个类似 <code>127.0.0.1:6379[1]&gt;</code>的信息.如果你想换会默认数据库，只需要敲<code>select 0</code> 在终端。</p>
-
-<h3>Commands，Kyes and Value</h3>
-
-<p>当Redis不仅仅是Key-Value的存储，在核心，5个数据结构中的每一个都至少有一个Key和value。在继续学习其他知识前这是有必要了解Key和value的。</p>
-
-<p>Kyes是你如何识别一块数据。我们将会用keys操作，但是现在，最好了解一个key类似 users:leto。人们完全有理由期待这样一个key包含一个user名为leto的信息。冒号没有什么特殊的含义，但是用分隔符是通常人们组织他们的kyes。</p>
-
-<p>Values代表与key有关的实际的数据。他们能是任何数据。有些时候你需要要存储字符串，有时候是整型，有时候需要存储序列化结构（JSON，XML或者其他格式）。对于大多数，Redis对待values是一个字节数组，他不关心具体是什么。注意 不同的驱动处理序列化是不同的，所以在这教程中我们只谈论字符串，数字，和JSON。</p>
-
-<p>我们输入下面代码：</p>
-
-<pre><code>set users:leto ”{name: leto, planet: dune, likes: [spice]}”
-</code></pre>
-
-<p>这是一个基本的Redis的命令。首先我们有一个真实的命令：set。后面是他的参数。set命令有2个参数：一个是我们设置的key，另一个是key对应设置的value。大多数，但不是所有都需要key（如果这么多，通常是第一个参数）。你能猜到怎么获得value？希望你能说（不确定也不要担心）：</p>
-
-<pre><code>get users:leto
-</code></pre>
-
-<p>我们继续用一些新的组合。Keys和Value是一些基本的概念，</p>
-
-<h3>查询</h3>
-
-<p>当我们继续时，需要了解2件事。对于Redis，Keys就能得到一切，values什么也得不到。或者换种说法，Redis不允许你查询一个object的value。在上面的例子我们不能找到user(s) 那个住在planet dune。</p>
-
-<p>对于许多人来说，这是会引起一些不适应。我们现在的查询数据是那么灵活和强大，但是Redis的查询方法似乎有点原始和不实用。不要动摇。记住，Redis不是一个适用于所有结构的方案。有些不能放在这，因为查询的限制。所以考虑这样的因素，你就要好好设计的model。</p>
-
-<p>我们会看一些具体例子，但是重要的是了解Redis的基础。了解后能帮助我们理解为什么value是任何值了&mdash;-Redis从不需要了解他们是什么。同时他也能帮助我们思考新的模型。</p>
-
-<h3>内存和持久化</h3>
-
-<p>我之前提到Redis是内存中持久化存储。</p>
-
-<p>为了实现持久化，默认的Redis是把所有变化keys快照到硬盘上。你能配置如果X数量的keys改变，在Y秒内。Redis会保存数据库从每60秒内至少1000或更多的Kyes改变到15分钟内9个或更少的keys改变。</p>
-
-<p>另外Redis可以以增量的模式。一旦有一个key改变，一个增量的文件会更新到硬盘上。在一些特殊的情况下会丢失60秒的数据，为了换取一些性能。有时候这样的丢失数据是不可能接受的。Redis给了一些选项。在第六章的时候你会看到第三种选项，在从设备上持久化。</p>
-
-<p>相对于内存，Redis把所有的数据放在内存中。这事Redis运行的最明显的成本：内存在服务器硬件还是很贵的。我觉得一些开发者不能确定一个数据占多少空间。莎士比亚全集大概占5.5MB。Redis能帮你压缩到2MB.</p>
-
-<p>Redis支持虚拟内存，然后这个功能不建议使用。</p>
-
-<h3>总结到一起</h3>
-
-<p>我们触及到了一些高等级的主题。在使用Redis之前我想把这些主题总结一下。特别是查询限制，数据结构和在内存中存储数据。</p>
-
-<p>当你把这三个结合到一起，你应该想到速度了。一些人会说‘当然快了，因为所有的都在内存里’。但这只是其中的一部分。真正的原因就是他的特殊的数据结构。</p>
-
-<p>到底有多快？这要依据很多事&mdash;哪个明了你用了，数据的类型等等。但是Redis的性能可以在成百上千或者成千上万次每秒。你可以运行 <code>redis-benchmark</code>（和redis-server和redis-cli同一个目录下）自己测试下。</p>
-
-<p>了解Redis的趋势非常重要，因为它会影响你如何与它进行交互。有sql开发经验的开发者，通常他们对数据库所做工作的数量减至最少。对所有系统包括Redis而言这是一个好的忠告。然而考虑到我们正在处理简单的数据结构，我们就要通过多次调用Redis来达到目标。这样获得数据的模式开始有些不适应，但是在现实中，跟性能比，这些消耗是无关紧要的。</p>
-
-<h3>小结</h3>
-
-<p>我们已经了解了一些Redis。如果不太清楚想查询请不要担心。在下一章，我们会亲手操作，遇到的问题基本上都能解答。
-下面是这章的重点：</p>
-
-<ul>
-<li>Keys是定义数据（Values）的字符串</li>
-<li>Values是字节数组，Redis不关心具体是什么</li>
-<li>Redis有五个数据结构</li>
-<li>综合上述，Redis速度快，方便使用。但是不适合所有情景</li>
-</ul>
-
-
-		
-		
-	</div>
-
-<div class="meta">
-	
-		<span class="comments"><a href="/blog/2013/05/03/Redis-Tutorials-2//index.html#disqus_thread">Comments</a></span>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/05/03/Redis-Tutorials-1/">
-		
-			Redis系列教程1</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-03T00:00:00+08:00" pubdate data-updated="true">May 3<span>rd</span>, 2013</time></div>
-      <div class="tags">Tags: 
-
-
-	<a class='category' href='/blog/categories/redis/'>Redis</a>
-
-
-</div>
-    </div>
-		<h1>Redis系列教程1</h1>
-
-<p>2013-05-03 By</p>
-
-<h2>介绍</h2>
-
-<p>近些年来，关于查询存储数据发展到难以相信的地步。关系型数据库并不是到哪都好使的了，或者说现在的数据的生态系统并不是很相同。</p>
-
-<p>纵观这么多新工具和解决方案，对于我来说，Redis是最兴奋的。为什么呢？</p>
-
-<ul>
-<li>第一个原因就是非常简单就能学会。学习Redis也就是几小时的事。</li>
-<li>第二个原因就是它解决了一些特定的问题，而在同一时间是相当通用的。</li>
-</ul>
-
-
-<h2>开始</h2>
-
-<p>我们用不同于:code，看视频，和一些阅读。没有什么能真正帮助你理解Redis，除了真正的体验Redis。Redis的安装非常简单。</p>
-
-<h3>Windows</h3>
-
-<p>Redis它本身不是官方支持，但是这有一些其他选择。你不能把他运行在生产环境中。但是我在开发环境中没遇到什么限制。</p>
-
-<p>一个微软开放技术，你可以在 <a href="https://github.com/MSOpenTech/redis">https://github.com/MSOpenTech/redis</a>。写这个的时候还不能用到生产环境中。</p>
-
-<p>另一个解决方案，一些时候是好用的。可以在<a href="https://github.com/dmajkic/redis/downloads">https://github.com/dmajkic/redis/downloads</a>下载到。你可以下载最新版本（在列表的最上面那个）。</p>
-
-<h3>Mac and *nix</h3>
-
-<p>对于Mac和*nix用户，从源码build是最好的选择。命令可以带着最新的版本号。我所的版本都在<a href="http://redis.io/download">http://redis.io/download</a>。当写这个教程的时候最新的版本是2.6.2
-安装命令：</p>
-
-<pre><code>wget http://redis.googlecode.com/files/redis-2.6.2.tar.gz   tar xzf redis-2.6.2.tar.gz  cd redis-2.6.2  make
-</code></pre>
-
-<p>或者Reids可以通过包管理（可以通过Homebrew 安装）</p>
-
-<p>如果你是build源码，一个二级制文件会在src目录下出现。通过 cd scr 到对应的路径。</p>
-
-<h3>运行&amp;连接 Redis</h3>
-
-<p>如果一切正常,Redis二进制文件就在你眼前。Redis有一些可执行文件。我们的焦点放在Redis server和Redis命令行工具。让我们开始server。在windows中双击redis-server，在*nix和mac上 执行./redis-server。</p>
-
-<p>如果你看到初始化信息你会看到一个警告，redis.conf文件没有找到。Redis会默认用built-in，这对我们所做很好。</p>
-
-<p>下一步运行 redis-cli 和上一步一样。这回让你连接到当前运行的server 在默认的端口（6379）。</p>
-
-<p>你可以通过在命令行中敲入 info  查看所有的信息。你可以到一连串的key-value 服务器信息。</p>
-
-<p>如果你遇到什么问题，你可以在<a href="https://groups.google.com/forum/#!forum/redis-db">https://groups.google.com/forum/#!forum/redis-db</a>查找一些指点</p>
-
-<h3>Redis驱动</h3>
-
-<p>作为你很快就会学到，Redis 的Api是最好的描述他的功能。他在程序上表现非常简单。这意味这你可以在命令行上或者用你熟悉的语言操作都是一样的简单。因此你不会有关于编程语言是的问题。如果你想概览下客户端列表可以在<a href="http://redis.io/clients">http://redis.io/clients</a>中找到</p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
-		<span class="comments"><a href="/blog/2013/05/03/Redis-Tutorials-1//index.html#disqus_thread">Comments</a></span>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/01/21/iOSCrashReport/">
-		
-			iOS CrashReport</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-01-21T00:00:00+08:00" pubdate data-updated="true">Jan 21<span>st</span>, 2013</time></div>
-      <div class="tags">Tags: 
-
-
-	<a class='category' href='/blog/categories/blog/'>blog</a>
-
-
-</div>
-    </div>
-		<h1>iOS CrashReport</h1>
-
-<p>2013-01-13 By</p>
-
-<p>Make sure you set the right DEVELOPER_DIR:</p>
-
-<pre><code>export DEVELOPER_DIR="/Applications/XCode.app/Contents/Developer"
-</code></pre>
-
-<p>You will want to follow the same steps as outlined in the original answer (below) with a few exceptions.</p>
-
-<p>First, you need to fix the Xcode path. Open a terminal and run:</p>
-
-<pre><code>/usr/bin/xcode-select -print-path
-</code></pre>
-
-<p>If it displays &ldquo;/Developer&rdquo; or anything but &ldquo;/Applications/Xcode.app/Contents/Developer/&rdquo; then it is wrong. To fix this run the command:</p>
-
-<pre><code>sudo /usr/bin/xcode-select -switch /Applications/Xcode.app/Contents/Developer/
-</code></pre>
-
-<p>You can now run all the steps below, with the exception that the symbolicatecrash command is in a new spot (again). This is because Xcode now installs as an app. To find symbolicatecrash run this from the terminal:</p>
-
-<pre><code>find /Applications/Xcode.app -name symbolicatecrash -type f
-</code></pre>
-
-<p>This should return:</p>
-
-<pre><code>/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/PrivateFrameworks/DTDeviceKit.framework/Versions/A/Resources/symbolicatecrash
-</code></pre>
-
-<p>Before running symbolicatecrash you may wish to go to this directory like:</p>
-
-<pre><code>cd /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/PrivateFrameworks/DTDeviceKit.framework/Versions/A/Resources/
-</code></pre>
-
-<p>Final</p>
-
-<pre><code>symbolicatecrash xx.crash xx.dSYM &gt;xxx
-</code></pre>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
-		<span class="comments"><a href="/blog/2013/01/21/iOSCrashReport//index.html#disqus_thread">Comments</a></span>
-	
-</div>
-</article>
-
-<nav id="pagenavi">
-    
-    
-    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
-</nav>
-
-    </div>
-    <footer id="footer">
-    <div style="display:inline">
-    Copyright &copy; 2013
-
-    GeforceLee
-. Powered by <a href="http://octopress.org">Octopress</a> | 
-    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
-</div>
-
-
-    </footer>
-    <script src="/javascripts/fabric.js"></script>
-<script src="/javascripts/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-	$('.fancybox').fancybox();
-})(jQuery);
-</script> <!-- Delete or comment this line to disable Fancybox -->
-
-
-<script type="text/javascript">
-      var disqus_shortname = 'geforceleeoctopress';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-
-
-<!-- end toload --> 
-</div>
-</div>
-<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
-<script type="text/javascript">
-/*<![CDATA[*/
-;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
-/*]]>*/
-</script><!-- remove it to remove the scroll to top button -->
-</body>
-</html>
+</feed>

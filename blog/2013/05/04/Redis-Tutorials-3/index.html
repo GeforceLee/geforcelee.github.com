@@ -1,0 +1,338 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Redis系列教程3 - GeforceLee's Blog</title>
+    <meta name="author" content="GeforceLee">
+    
+	<meta name="description" content="Redis的数据结构">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="GeforceLee's Blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+
+    <!-- remove or comment it to disable ajaxification -->   
+    <script src="/javascripts/ajaxify.js"></script>
+   
+    
+    
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-37558768-2']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+</head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        GeforceLee
+    </div>
+</h1>
+<br>
+
+<ul id="social-links" style="text-align:center">
+  
+  <!-- GitHub -->
+  <li>
+  <a href="https://github.com/GeforceLee" class="github" title="Github"></a>
+  </li>
+  
+  
+  
+  
+  <!-- Twitter -->
+  <li>
+  <a href="http://www.twitter.com/GeforceLee" class="twitter" title="Twitter"></a>
+  </li>
+  
+  
+  
+  
+  
+  
+  <!-- weibo -->
+  <li>
+  <a href="http://www.weibo.com/314004856" class="weibo" title="Weibo"></a>
+  </li>
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">主页</a></li>
+	<li id="ajax"><a href="/blog/archives/index.html">Blog</a></li>
+     <li><a href="/about">关于我</a></li>
+    
+    <li>
+    <div id="dark">
+        <form method="get" action="/search.html" id="search">
+            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload --> 
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">Redis系列教程3</h2>
+	<div class="entry-content"><h1>Redis系列教程3</h1>
+
+<p>2013-05-04 By</p>
+
+<h1>第二章  数据结构</h1>
+
+<p>是时候该看看Redis的五种数据结构了。接下来解释下每一个数据结构。了解什么方法有效，并且要用什么数据结构表示什么样的数据。</p>
+
+<p>我们只了解了keys和values的命令。还没有了解数据结构。当我们用set命令，Redis是怎么知道要用什么数据结构？事实证明，每一个命令是特定的数据结构。举个例子，当你用set存储value存储的是string的数据结构。当用hset存储的是hash，这些命令很好掌握。</p>
+
+<p>Redis的网站有很好的文档。因此在这就没有做一些别人弄好的事情。我们只了解最重要的一些命令。</p>
+
+<p>没有什么比有趣的事情和尝试新事物更重要的。你可以通过使用 <code>flushdb</code> 命令清楚所有values，所以请不要轻易使用。</p>
+
+<h2>String</h2>
+
+<p>string是Redis中最基础的数据结构。当你考虑用key-value是应当考虑string。不要看名字混淆，value可是任何数据。</p>
+
+<p>我们已经看到一个string的例子，存储一个实例。这个要经常用到：</p>
+
+<pre><code>set users:leto "{name: leto, planet: dune, likes: [spice]}"
+</code></pre>
+
+<p>此外Redis让你做一些常规的操作，像 <code>strlen&lt;key&gt;</code> 能获得key对应的value是长度。<code>getrange &lt;key&gt; &lt;start&gt; &lt;end&gt;</code> 将会返回制定的value的范围。<code>append &lt;key&gt;&lt;value&gt;</code> 会增加到已存在的value（如果不存将会创建）。试试上面的命令：</p>
+
+<pre><code>&gt; strlen users:leto
+(integer) 42
+
+&gt; getrange users:leto 27 40
+"likes: [spice]"
+
+&gt; append users:leto " OVER 9000!!"
+(integer) 54
+</code></pre>
+
+<p>现在，你可能会想，这很棒，但没有什么意义。你不会从JSON中取出一段，或者增加一些值。你是对的，这只是告诉你这些命令能做些什么。</p>
+
+<p>之前我们学些Redis不关心values。大多数时间是对的。然后一些string的命令是针对一些特殊类型或结构的values。一个模糊的解释，我们能看到之间的 <code>append</code>和<code>getrange</code>命令会对一些特定的序列化数据有效。接下来给出一些具体例子：<code>incr</code>,<code>incrby</code>,<code>decr</code>和<code>decrby</code>命令。这些可以升序或降序string：</p>
+
+<pre><code>&gt; incr stats:page:about
+(integer) 1
+
+&gt; incr stats:p ≈age:about
+(integer) 2
+
+&gt; incrby ratings:video:12333 5
+(integer) 5
+
+&gt; incrby ratings:video:12333 3
+(integer) 8
+</code></pre>
+
+<p>你可以设想，Redis的string很好的分解了。试着增加 users:leto (没有一个数字的value)然后看看会发生什么（你会得到一个error）</p>
+
+<p>一个先进的例子<code>setbit</code>和<code>getbit</code> 命令。这个很好的用在‘我们今天有多少访问’，在有1.28亿用户的数据，50ms内就能解决，期间只用了16MB内存。</p>
+
+<p>你不必关系位图怎么工作，或者内部怎么运转。但是要明白Redis的string是很强大的。不过，最常见的情况是，我们给上述存储对象（复杂与否）和计数器。另外，由于通过键得到的值是如此之快，字符串也常常用于高速缓存数据。</p>
+
+<h2>Hashes</h2>
+
+<p>Hashes正是一个可以说明Redis不只是key-value存储的好例子。在大多数情况下，hasher像是strings。最重要的区别是，他们提供了一个额外的连接：字段。因此下面的hash的命令跟<code>set</code>和<code>get</code>很相似：</p>
+
+<pre><code>hset users:goku powerlevel 9000
+hget users:goku powerlevel
+</code></pre>
+
+<p>我们可以一次set多个字段，也可以一次获得多个字段，获得所有的字段和values。列出多少的字段或删除一个指定的字段。</p>
+
+<pre><code>hmset users:goku race saiyan age 737
+hmget users:goku race powerlevel
+hgetall users:goku
+hkeys users:goku
+hdel users:goku age
+</code></pre>
+
+<p>正如你看到的。hahes提供给我的比string更多的方法。我们能更好的操作。我们更更好的更新一个指定的数据。而不是整个数据更新。</p>
+
+<p>定义好一个hash，像user，可以更好的理解他们是怎么运作的。出于性能的考虑，越颗粒的操作，越好用。在下一章我们将看到hashes更实际的组织数据和查询。这正是hashes的真正用武之地。</p>
+
+<h2>Lists</h2>
+
+<p>Lists可以用一个指定的key存储一个数组的数据。你可以增加values到list，可以获得第一个或最后一个数据。也可以操作指定序号的values。Lists支持排序和效率的继续下标操作。我们将有一个 newusers 列表。他姜记录新注册的users：</p>
+
+<pre><code>lpush newusers goku
+ltrim newusers 0 50
+</code></pre>
+
+<p>首先我们在list头添加了一个新的user。然后我们trim这个list，这是一个普通的命令。<code>ltrim</code>是一个时间复杂度为O(N)的操作，N就是我们要删除的输了。在这个例子中，时间复杂度是O(1)因为列表里就一个元素。</p>
+
+<p>这是第一次我们见到一个key引用一个value。如果我们想获得10个users的详细信息，看下面的联合查询：</p>
+
+<pre><code>keys = redis.lrange('newusers', 0, 10)
+redis.mget(*keys.map {|u| "users:#{u}"})
+</code></pre>
+
+<p>上面这是一段Ruby的代码段。这就是多次查询。</p>
+
+<p>当然，lists不仅仅是便于排序。values可以是任何数据。你可以存储logs和用户在网站上的操作。如果你是做游戏的，你可以存储用户的操作。</p>
+
+<h2>Sets</h2>
+
+<p>Set用于存储唯一的values，然后他提供了一系列的 set-based的操作。像 <code>unions</code>。Sets不是有序的，但他提供一些有效的给予values的操作。好友列表是用set的最经典的例子：</p>
+
+<pre><code>sadd friends:leto ghanima paul chani jessica
+sadd friends:duncan paul jessica alia
+</code></pre>
+
+<p>不管user有多少个friend，这个操作的时间复杂度都是O(1)，检查某user是否有制定的friend：</p>
+
+<pre><code>sismember friends:leto jessica
+sismember friends:leto vladimir
+</code></pre>
+
+<p>此外我们还能得到2个或多个人是否有同样的friends：</p>
+
+<pre><code>sinter friends:leto friends:duncan
+</code></pre>
+
+<p>并且可以用一个新的key存储对应的结果：</p>
+
+<pre><code>sinterstore friends:leto_duncan friends:leto friends:duncan
+</code></pre>
+
+<p>Sets很容易找出重复的数据。或者我们用set可以做交集和并集的操作。</p>
+
+<h3>Sorted Sets</h3>
+
+<p>最后一个也是最强大的数据结构就是sorted sets。如果说hashes是一个有字段的string的话，sorted sets就是sets带着分数。这个分数用于排序和等级。如果我们想排名好友列表的话，我们可以：</p>
+
+<pre><code>zadd friends:duncan 70 ghanima 95 paul 95 chani 75 jessica 1 vladimir
+</code></pre>
+
+<p>如果要找出duncan有多少好友分数是超过90的：</p>
+
+<pre><code>zcount friends:duncan 90 100
+</code></pre>
+
+<p>指出chani的等级：</p>
+
+<pre><code>zrevrank friends:duncan chani
+</code></pre>
+
+<p>我们用zrevrank代替zrank是因为Redis默认是从低到高，在这里我们需要的是从高到低。最明显的例子用的stored sets就是排行榜系统。事实上任何你想排序的，你都可以通过sorted sets标记一个分数来排序。</p>
+
+<h2>小结</h2>
+
+<p>这章我们主要了解了五种数据结构。Redis可以做比你想到的多得多的事情。一旦你了解了，你就会试图用Redis来解决一些问题。Redis提供了丰富的数据结构和方法，但没有必要全部掌握。要实现一个功能，可以用一些常用命令。</p>
+</div>
+
+<div class="meta">
+	
+		<span class="comments"><a href="/blog/2013/05/04/Redis-Tutorials-3/#disqus_thread">Comments</a></span>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2013
+
+    GeforceLee
+. Powered by <a href="http://octopress.org">Octopress</a> | 
+    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'geforceleeoctopress';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://GeforceLee.github.io/blog/2013/05/04/Redis-Tutorials-3/';
+        var disqus_url = 'http://GeforceLee.github.io/blog/2013/05/04/Redis-Tutorials-3/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

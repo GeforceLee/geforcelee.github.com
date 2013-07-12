@@ -4,7 +4,7 @@
   <title><![CDATA[GeforceLee's Blog]]></title>
   <link href="http://GeforceLee.github.io/atom.xml" rel="self"/>
   <link href="http://GeforceLee.github.io/"/>
-  <updated>2013-07-11T23:46:38+08:00</updated>
+  <updated>2013-07-12T13:45:44+08:00</updated>
   <id>http://GeforceLee.github.io/</id>
   <author>
     <name><![CDATA[GeforceLee]]></name>
@@ -19,6 +19,900 @@
     <updated>2013-07-11T13:53:00+08:00</updated>
     <id>http://GeforceLee.github.io/blog/2013/07/11/test</id>
     <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Redis系列教程7]]></title>
+    <link href="http://GeforceLee.github.io/blog/2013/05/07/Redis-Tutorials-7/"/>
+    <updated>2013-05-07T00:00:00+08:00</updated>
+    <id>http://GeforceLee.github.io/blog/2013/05/07/Redis-Tutorials-7</id>
+    <content type="html"><![CDATA[<h1>Redis系列教程7</h1>
+
+<p>2013-05-07 By</p>
+
+<h1>第六章 管理</h1>
+
+<p>最后一章我们要了解对运行的Redis进行管理。这不是一个Redis管理综合的指南。在这我们只能了解一些基础的知识。</p>
+
+<h2>配置</h2>
+
+<p>当你第一次启动Redis server的时候，会出现警告：<code>redis.conf</code> 文件没有找到。这个文件是配置Redis用的。每次发布Redis的时候都有一个写的很详细的<code>redis.conf</code>。例子文件包含了默认的Redis配置选项，这对我们了解每个设置都是什么很有帮助。你可以在<a href="https://github.com/antirez/redis/raw/2.4.6/redis.conf">https://github.com/antirez/redis/raw/2.4.6/redis.conf</a>找到。</p>
+
+<p>这个配置文件是Redis2.4.6版本的。你可以通过<code>info</code>命令查看你当前的版本。</p>
+
+<p>因为这个文件注释很详细，我们就不在这一一介绍了。</p>
+
+<p>我们要给<code>redis.conf</code>文件增加内容，就用<code>config set</code>命令，我们之前就设置了<code>slowlog-log-slower-than</code> 为0。</p>
+
+<p>这还有一个<code>config get</code>命了显示设置的命令。这个命令还支持参数匹配。所以如果我们想显示所有跟log有关的我们可以用：</p>
+
+<pre><code>config get *log*
+</code></pre>
+
+<h2>验证</h2>
+
+<p>Redis能配置成需要密码的。可以通过<code>requirepass</code>设置（可以通过<code>redis.conf</code>文件或者<code>config set</code>命令设置）客户端需要用<code>auth password</code>命令。一旦客户端被验证，就可以用任何命令了。通过配置你可以给命令改名字：</p>
+
+<pre><code>rename-command CONFIG 5ec4db169f9d4dddacbfb0c26ea7e5ef
+rename-command FLUSHALL 1041285018a942a4922cbf76623b741e
+</code></pre>
+
+<p>或者你可以设置一个命令问空字符串来关闭命令。</p>
+
+<h2>大小限制</h2>
+
+<p>当你开始用Redis的时候，你可能很想知道 你能有多少个key呢？或者在hash中你能有多少个字段呢？或者在list中能有多少个元素呢？每个实例实际限制都是亿万的。</p>
+
+<h2>Replication</h2>
+
+<p>Redis支持复制，这就意味这让你写一个Redis实例（master），一个或多个实例（slaves）可以跟着主服务器一起更新。你可以配置一个slave通过用<code>slaveof</code>配置设置或者通过<code>slaveof</code>命令。</p>
+
+<p>复制帮助我们保护数据通过考配到其他服务器上。Replication可以提高性能通过读分发到slaves上。不过这会得到一些过期的数据，但是很多应用是可以做一些权衡。</p>
+
+<p>不幸的的是Redis还不支持自动的故障转移。如果master down了，salve必须手动的promoted。传统的高级工具会用一个心跳监控脚本来切换。</p>
+
+<h2>备份</h2>
+
+<p>备份Redis就是简单的将master拷贝一个快照到指定的位置（S3，FTP&hellip;）。默认的Redis保存快照是一个名为<code>dump.rdb</code>的文件。在任何时间点，你可以简单的<code>scp</code>,<code>ftp</code>,<code>cp</code>这文件。</p>
+
+<p>关闭快照和只赠文件（aof）在master上而让slave做这些。这回减少master的压力。</p>
+
+<h2>缩放和Redis集群</h2>
+
+<p>Replication是第一个要用的。一些花费较高的命令（像sort）把他们分配到slave上执行可以挺高性能。</p>
+
+<p>根据这个，我们可以分配kyes到多个Redis实例中（可以在同一个内存中，同一个机器）。目前这是你需要考虑的（虽然一些Redis的驱动提供同样的逻辑）。这教程就不告诉怎么把你的数据水平分布了。目前你不要担心的，但是当你用的是要考虑好。</p>
+
+<p>好消息就是Redis集群正在完善。不仅提供水平伸缩，还提供的自动失效备份。</p>
+
+<p>高性能可伸缩我们先在就可以达成，只要你愿意把时间和经历放在里面。Redis机会使事情变得简单。</p>
+
+<h2>小节</h2>
+
+<p>在这章给出了一些在Redis 应用的项目和站点。不用怀疑Reids，因为一个运行了一段时间，然而一些工具，特别是在安全和可用性上还比较年轻。Redis Cluster希望很快就能面面市。</p>
+
+<h1>总结</h1>
+
+<p>Redis可以简单高效的为你存储数据。要好好的利用他就要系统的学习。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Redis系列教程6]]></title>
+    <link href="http://GeforceLee.github.io/blog/2013/05/06/Redis-Tutorials-6/"/>
+    <updated>2013-05-06T00:00:00+08:00</updated>
+    <id>http://GeforceLee.github.io/blog/2013/05/06/Redis-Tutorials-6</id>
+    <content type="html"><![CDATA[<h1>Redis系列教程6</h1>
+
+<p>2013-05-06 By</p>
+
+<h1>第五章 Lua脚本</h1>
+
+<p>在Redis2.6中，包含了一个Lua的解析器，让开发这可以在Redis内部写更好的查询语句。没错这很像大型的关系数据库中的存储过程。</p>
+
+<p>这个最难的就是学习Lua，但是Lua是一个比其他流行语言小很多的脚本语言，他有很好的文档，有积极的社区。这章不会详细介绍Lua，但是会有一些有用的例子会被提到。</p>
+
+<h2>为什么?</h2>
+
+<p>在开始用Lua脚本之前，你会想知道为什么用他。很多开发者不喜欢传统的存储过程，这有什么不同吗？一个简短的答案：NO。不正当的运用，Redis的Lua脚本结果很难测试，因为有复杂的业务逻辑在里面。</p>
+
+<p>适当的运用，可以有效的提高效率以及简化代码。在一个方法内，组合多命令，打包很多简单逻辑。代码会变得简单。会提高性能，因为去掉了一些中间过程的结果。最后的结果会在脚本中计算。</p>
+
+<p>在接下来的例子中会很好解释上述内容。</p>
+
+<h2>Eval</h2>
+
+<p><code>eval</code>命令会执行Lua脚本。我们会运用很多的参数，让我们来看一个例子（在Ruby中执行，因为在命令行中执行多行不太好）：</p>
+
+<pre><code>script = &lt;&lt;-eos
+  local friend_names = redis.call(’smembers’, KEYS[1])
+  local friends = {}
+  for i = 1, #friend_names do
+    local friend_key = ’user:’ .. friend_names[i]
+    local gender = redis.call(’hget’, friend_key, ’gender’)
+    if gender == ARGV[1] then
+        table.insert(friends, redis.call(’hget’, friend_key, ’details’))
+        end
+  end
+return friends eos
+
+Redis.new.eval(script, [’friends:leto’], [’m’])
+</code></pre>
+
+<p>在上面的例子中我们获得Leto的所有男性朋友。我们用redis.call(&ldquo;command&rdquo;,ARG1,ARG2,&hellip;)来调用Redis命令。</p>
+
+<p>如果你对Lua陌生，你要仔细看每一行代码。{}是创建一个空table（能代表array或dictionary），#TABLE 是获得Table中的元素的数量。 <code>..</code>连接字符串用。</p>
+
+<p><code>eval</code>实际上接收4个参数。第二个蚕食应该是key 的数量。然而Ruby自动的帮我们填上了。考虑下：</p>
+
+<pre><code>eval ”.....” ”friends:leto” ”m”
+vs
+eval ”.....” 1 ”friends:leto” ”m”
+</code></pre>
+
+<p>在第一个（错误）的例子中，Redis怎么会知道有多少个是key，有多少是参数呢？在第二个中，就明确了。</p>
+
+<p>这会带来第二个问题：为什么必须明确列出keys？在Redis中要知道每个命令运行的时间，那些keys是需要的。这会让像Redis Cluster分布请求在多个Redis服务器中。你可能发现我们之前的例子是动态的读取key。<code>hget</code>获得Leto的所有男性朋友。这是因为提前列出key只是一个建议，并不是强制规则。上面的代码我们会很好的在一个单例中运行，但不能在尚未发布的Redis Cluster中。</p>
+
+<h2>脚本管理</h2>
+
+<p>即使通过<code>eval</code>可以把脚本缓存到Redis中，但是每次执行都要传递一个body并不理想。作为替代你可以注册一个脚本在Redis，然后用key执行。用<code>script load</code> 命令，他能返回一个SHA1值：</p>
+
+<pre><code>redis = Redis.new
+script_key = redis.script(:load, "THE_SCRIPT")
+</code></pre>
+
+<p>如果想加载这个脚本，我们可以用<code>evalsha</code> :</p>
+
+<pre><code>redis.evalsha(script_key, ['friends:leto'], ['m'])
+</code></pre>
+
+<p><code>script kill</code>,<code>script flush</code>和<code>script exists</code>是一些管理Lua 脚本的命令。他们分别是：杀死运行的脚本，删除缓存中的所有脚本，和看一个脚本是否在缓存中。</p>
+
+<h2>Libraries</h2>
+
+<p>Redis的Lua提供了一个很有用库，当<code>table.lib</code>,<code>string.lib</code>,<code>math.lib</code>都是很有用的。<code>cjson.lib</code>值得拿出来说一下：</p>
+
+<pre><code>redis.evalsha ".....", [KEY1], [JSON.fast_generate({gender: 'm', ghola: true})
+</code></pre>
+
+<p>你也可以反序列化在Lua脚本中：</p>
+
+<pre><code>local arguments = cjson.decode(ARGV[1])
+</code></pre>
+
+<p>当然，JSON库也可以在Redis直接解析存储。之前的例子也可以写成这样:</p>
+
+<pre><code>local friend_names = redis.call('smembers', KEYS[1])
+local friends = {}
+for i = 1, #friend_names do
+    local friend_raw = redis.call('get', 'user:' .. friend_names[i])
+    local friend_parsed = cjson.decode(friend_raw)
+        if friend_parsed.gender == ARGV[1] then
+            table.insert(friends, friend_raw)
+    end
+end
+return friends
+</code></pre>
+
+<p>从指定的hash字段里获得性别可以替换成直接从好友数据里获得。（这会比较慢。）</p>
+
+<h2>原子</h2>
+
+<p>因为Redis是单线程的，所有你不用担心你的Lua脚本会被别的Redis命令打断。一个最值得一提的优势就是key不会在执行的时候过期。如果一个key出现在开始脚本时，他会在任何点出现，除非你删除它。</p>
+
+<h2>管理</h2>
+
+<p>下一章我们会详细的介绍Redis的管理和配置，但是现在，简单的了解<code>lua-time-limit</code>定义了一个Lua脚本如许执行的时间。默认的是5秒。</p>
+
+<h2>小节</h2>
+
+<p>在这章我们介绍了Lua脚本。他可以在任何地方用到，但是谨慎的实现自己的功能，不要滥用。他就会使你的代码简洁，并且能提高效率。Lua脚本也可以像其他Reids命令一样做一些限制。如果可能尽可能的多练习。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Redis系列教程5]]></title>
+    <link href="http://GeforceLee.github.io/blog/2013/05/06/Redis-Tutorials-5/"/>
+    <updated>2013-05-06T00:00:00+08:00</updated>
+    <id>http://GeforceLee.github.io/blog/2013/05/06/Redis-Tutorials-5</id>
+    <content type="html"><![CDATA[<h1>Redis系列教程5</h1>
+
+<p>2013-05-06 By</p>
+
+<h1>第三章  基于数据结构</h1>
+
+<p>Redis提供了五种数据结构，这有一些不是数据结构的命令。我们已经看到一些有用的命令：info，select，flushdb，multi，exec，discard，watch和kyes。这章我们会了解一些其他的重要的命令。</p>
+
+<h2>过期</h2>
+
+<p>Redis提供了你一个key 的存活期限，你可以给一个绝对时间（自1970年1月1日到现在的秒）或者是从现在开始的秒数。这是基于key的命令。所以value是什么都无所谓。</p>
+
+<pre><code>expire pages:about 30
+expireat pages:about 1256933600
+</code></pre>
+
+<p>第一个命令会在30秒后删除key。第二个做同样的是在2012年11月31号的12点。</p>
+
+<p>这使Redis变成一个理想的缓冲引擎。你可以通过<code>ttl</code>命令查看一个key 存活了多久，你也可以删除一个key的过期时间：</p>
+
+<pre><code>ttl pages:about
+presist pages:about
+</code></pre>
+
+<p>最后，这有一个特殊的命令，<code>setex</code>让你设置指定的string，他是一个原子命令:</p>
+
+<pre><code>setex pages:about 30 '&lt;h1&gt;about us&lt;/h1&gt;....'
+</code></pre>
+
+<h2>发布和订阅</h2>
+
+<p>Redis的list有<code>blpop</code>和<code>brpop</code>命令。他们返回删除的第一个元素并且返回。这可以很有用的用到一个简单的队列里。</p>
+
+<p>基于这些，Redis很好的提供发布信息和订阅频道的功能。你可以打开一个新的redis-cli串口试试。在第一个窗口订阅频道：</p>
+
+<pre><code>subscrive warnings
+</code></pre>
+
+<p>回应小心。现在你在另一个窗口，发布一个消息：</p>
+
+<pre><code>publish warnigns "it's over 9000!"
+</code></pre>
+
+<p>如果你回到第一个窗口，你会接收到消息。</p>
+
+<p>你可以订阅多个频道（subscribe channel1 channel2 &hellip;）订阅频道的模式（psubscribe warnings:*） 用<code>unsubscribe</code> 和 <code>punsubscribe</code>命令停止监听。</p>
+
+<p>最后，注意<code>publish</code>命令返回的值：1。就是监听客户端的数量。</p>
+
+<h2>监控和慢记录</h2>
+
+<p><code>monitor</code>命令让你了解Redis运行状况。这是一个很好的调试工具了解你的应用程序与Redis的联系。在其中一个redis-cli的窗口中（如果你还在subscribed，你可以用unsubscribe命令取消，或者关闭重新开一个）敲入<code>monitor</code>命令。在另一个，执行一个命令。你可以看到这些信息。</p>
+
+<p>在生产环境上用还是要注意吧。因为这是一个开发和测试工具。这没有什么多说的。</p>
+
+<p>配合这monitor，Redis有一个<code>slowlog</code>这是一伟大的分析工具。他会log出消耗超过指定毫秒的命令。下一章我们会简单的了解下怎么配置Redis。现在你能配置Redis log出所有的命令：</p>
+
+<pre><code>config set slowlog-log-slower-than 0
+</code></pre>
+
+<p>下一步，用一些命令，最后你能得到所有的log。获得最近的logs通过：</p>
+
+<pre><code>slowlog get
+slowlog get 10
+</code></pre>
+
+<p>你也可以获得数量通过输入slowlog len</p>
+
+<p>从每个你输入的命令你能看到4个参数：</p>
+
+<ul>
+<li>一个自增的id</li>
+<li>一个命令产生的时间戳</li>
+<li>命令消耗多少时间（ms）</li>
+<li>命令本身和参数</li>
+</ul>
+
+
+<p>slowlog在内存中维护，所以在生产环境中要慎重。</p>
+
+<h2>排序</h2>
+
+<p>Redis最重要的命令之一就是排序。他让你在list，set，sorted set中排序。在最简单的形式：</p>
+
+<pre><code>rpush users:leto:guesses 5 9 10 2 4 10 19 2
+sort users:leto:guesses
+</code></pre>
+
+<p>上面返回的是从低到高的排序后结果。</p>
+
+<pre><code>sadd friends:ghanima leto paul chani jessica alia duncan
+sort friends:ghanima limit 0 3 desc alpha
+</code></pre>
+
+<p>在上面的命令展示出我们应该如何分页排序好的记录（通过limit），怎么获得倒序（通过desc），通过字典排序规则代替数字规则（通过 alpha）。</p>
+
+<p>排序的真正强大之处应该是根据引用的object排序。之前我们展示了lists，sets，sorted sets经常引用其他Redis的object。<code>sort</code>命令很解除引用，然后通过一些值排序。举个例子，我们有一个bug追中器，能让用户看到问题。我们可能会用set去跟踪：</p>
+
+<pre><code>sadd watch:leto 12339 1282 338 9338
+</code></pre>
+
+<p>这可能会根据id排序会更好（默认就是这么做的），但是我们也想根据严重等级排序。为了这么做我们会告诉Redis排序的参数。首先我们增加一些对结构有意义的数据：</p>
+
+<pre><code>set severity:12339 3
+set severity:1382 2
+set severity:338 5
+set severity:9338 4
+</code></pre>
+
+<p>通过严重等级排序bugs：</p>
+
+<pre><code>sort watch:leto by severity:* desc
+</code></pre>
+
+<p>Redis会替换*为我们传的参数。这会创建实际的key对应的value，然后排序。</p>
+
+<p>虽然你可以在Redis中有很多的kyes，我想上面的例子你可能会有凌乱。幸好排序也同样适合在hashes的字段上。替换最高级的keys你可以用hashes：</p>
+
+<pre><code>hset bug:12339 severity 3
+hset bug:12339 priority 1
+hset bug:12339 details ”{id: 12339, ....}”
+
+hset bug:1382 severity 2
+hset bug:1382 priority 2
+hset bug:1382 details ”{id: 1382, ....}”
+
+hset bug:338 severity 5
+hset bug:338 priority 3
+hset bug:338 details ”{id: 338, ....}”
+
+hset bug:9338 severity 4
+hset bug:9338 priority 2
+hset bug:9338 details ”{id: 9338, ....}”
+</code></pre>
+
+<p>不仅整齐了，我们还能通过severity或者priority排序，同时我们还可以通过排序获得：</p>
+
+<pre><code>sort watch:leto by bug:*-&gt;priority get bug:*-&gt;details
+</code></pre>
+
+<p>同样的结果。Redis认出->序列，然后查找出hash里的指定字段。我们同时也加了get参数，定义了子查询来获得bug的详细信息。</p>
+
+<p>在大set里，排序会变得很慢。好消息是排过序的输出可以存储：</p>
+
+<pre><code>sort watch:leto by bug:*-&gt;priority get bug:*-&gt;details store watch_by_priority:leto
+</code></pre>
+
+<p>存储一个排序后的结果，做一个漂亮的连招。</p>
+
+<h2>小节</h2>
+
+<p>在这章我们关注非数据结构命令。这些命令因情况而定。不一定每个应用都会用到expiration，publication/subscription 或者排序。但是在这都有了了解。我们在这只用了其中一些命令。文档上会有全部的命令<a href="http://redis.io/commands">http://redis.io/commands</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Redis系列教程4]]></title>
+    <link href="http://GeforceLee.github.io/blog/2013/05/06/Redis-Tutorials-4/"/>
+    <updated>2013-05-06T00:00:00+08:00</updated>
+    <id>http://GeforceLee.github.io/blog/2013/05/06/Redis-Tutorials-4</id>
+    <content type="html"><![CDATA[<h1>Redis系列教程4</h1>
+
+<p>2013-05-06 By</p>
+
+<h1>第三章  利用数据结构</h1>
+
+<p>在之前的章节，我们了解了Redis的五种数据结构，以及了解一些我可以用这五个数据结构能解决的问题。接下来，我们将要看到一些新的功能，命令以及一些设计模式。</p>
+
+<h2>O标识符（时间复杂度）</h2>
+
+<p>贯穿这个教程，我们一直用O表示 从O（n）到O(1)。在Redis，这个会告诉我们一个命令有多快。</p>
+
+<p>Redis的文档告诉我们每个命令的O标识符的结果。他也告诉我们应当关注与哪些影响性能。让我们看看一些例子。</p>
+
+<p>最快的当然是O(1)。不管我们操作的是5个还是5百万条数据，这都是同样的效率。<code>sismember</code>命令会告诉我们一个value是不是属于一个set&mdash;-O(1)。<code>sismember</code>是一个很有用的命令，所以性能很重要。在Redis中有很多命令是O(1)。</p>
+
+<p>对数或者 O(log(N))，是次最快的，因为他被越来越小的分割。用这样的命令操作，一个很大的数据会分成很多次的迭代。<code>zadd</code>就是一个O(log(N))的命令，N代表在set中的数据个数。</p>
+
+<p>下一个就是线性命令，O(N).查找table中一个无序的列就是一个O(N)。<code>ltrim</code>就是一个这样的命令。但是在<code>ltrim</code> N不是list中元素的个数，而是要删除元素的个数。用<code>ltrim</code>删除一百万条数据中的一条比删除1000条数据中的10条要快（不过你感觉不出来，因为速度很快）。</p>
+
+<p><code>zremrangebyscore</code>这个命令是从sorted set中删除2个分数之间的元素。他的时间复杂度是O(log(N)+M)。这是一个混合。我们从文档上看到N是set中有多少元素。M是有多少元素要删除。换句话说删除元素是关键。</p>
+
+<p>排序命令我们会在下一章中详细讨论。他的时间复杂度为O(N+M*log(M))。看到这个你可能会说这是一个Redis最复杂命令之一了。</p>
+
+<p>这还有2个其他的。O(N<sup>2</sup>)和O(C<sup>N</sup>)。N越大性能越差。在Redis中没有这么复杂的。</p>
+
+<p>值得说明的O标示符表示的是最坏的情况。当我们说一些需要O(N)的,最好的请客是马上找到，最坏的情况是最后才找到。</p>
+
+<h2>伪键查询</h2>
+
+<p>在通常情况下我们想要通过不同的kye查询相同的value，举个例子，你可能想通过email查找用户，并且也想通过id找到他。一个可怕的解决办法就是重复2条string作为value：</p>
+
+<pre><code>set users:let@dune.gov "{id:9001,email:'leto@dune.gov',....}"
+set users:9001 "{id:9001,email:'leto@dune.gov',...}"
+</code></pre>
+
+<p>这非常不好，这非常难管理，它占2个内存。</p>
+
+<p>如果Redis能提供一个key引用另一个就好了，但是他没有。Redis的一个主要成员要保持Redis的code和API整洁和简单。内部实现的连接Kye（我们可以对keys做很多事情）是hashes。</p>
+
+<p>用hash，我们可以去掉复制的操作。</p>
+
+<pre><code>set users:9001 "{id:9001,email:'leto@dune.gov',....}"
+hset users:loopup:email leto@dune.gov 9001
+</code></pre>
+
+<p>上面就是我们用一个伪键引用一个user。通过id获得user。我们可以：</p>
+
+<pre><code>get users:9001
+</code></pre>
+
+<p>通过emial获得（Ruby）：</p>
+
+<pre><code>id = redis.hget('users:loopup:email','leto@dune.gov')
+user = redis.get("user:#{id}");
+</code></pre>
+
+<p>这就是我们经常做的。对于我这就是hashes的用处,当你用到的时候就会体会的到。</p>
+
+<h2>引用和索引</h2>
+
+<p>我们已经看了一些引用的例子了。我们在list的例子中看到过，上面的hashes的例子我们用来简便查询操作。接下来我们要从本质上手动管理索引和引用。我实话说，在Redis中当你要考虑手动管理，更新，删除引用，很让人头疼，因为没有什么神奇的方法。</p>
+
+<p>我们已经看到过set手动的管理索引：</p>
+
+<pre><code>sadd friends:leto ghanima paul chani jessica
+</code></pre>
+
+<p>set中每个成员都是一个Redis的string value描述user的详细信息。假如chani欢乐她的名字，或者删除她的账号呢？也想还有个逆向关系：</p>
+
+<pre><code>sadd friedns:chani leto pual
+</code></pre>
+
+<p>考虑这些额外的索引值的维护成本，你就可能畏惧了。在下一节中，我们将讨论如何降低性能开销而不做额外的操作。</p>
+
+<p>如果你仔细想想，关系型数据库也有同样的开销。索引消耗内存。</p>
+
+<p>手动处理Reids的索引是不行的，但是你测试起来，这并不是一个问题。</p>
+
+<h2>循环操作和管道</h2>
+
+<p>我们已经提到多次运行在Redis是很常见的模式。既然是你经常做的事情，我们就进一个看看这些功能。</p>
+
+<p>首先，很多命令既接收一个参数，也接收多个参数，或者有个姐妹命令带着多个参数：</p>
+
+<pre><code>keys = redis.lrange('newusers',0,10)
+redis.mget(*keys.map{|u| "users:#{u}})
+</code></pre>
+
+<p>或者<code>sadd</code>命令 增加1个或多个成员到set中：</p>
+
+<pre><code>sadd friends:vladimir piter
+sadd friends:paul jessica leto "leto II" chani
+</code></pre>
+
+<p>Redis同时也支持管道。通常的一个客户端发送一个请求到Redis，他就是等待回应，然后发下一个。如果用管道的画你可以发送一连串的请求而不必等待响应。这样就能减少网络开销，并提高效率。</p>
+
+<p>值得注意点是，Redis用把命令变成队列放到内存中。使用多达要看你用多大的命令，具体的说要用多少参数。如果你用一个包含50以上的字符串key就会占用非常大的数量级的内存。</p>
+
+<p>事实是你怎么在管道中执行是有所不同的。在Ruby中你可以传一个block到管道方法：</p>
+
+<pre><code>redis.pipelined do
+    9001.times do
+        redis.incr('powerlevel')
+    end
+end
+</code></pre>
+
+<p>正如你看到的，管道很提高很多效率！</p>
+
+<h2>事务</h2>
+
+<p>每个Redis的命令都是原子性的，包括一个可以做多个事的。此外，Redis运行多个命令的时候是支持事务的。</p>
+
+<p>你可能不知道，Redis是单线程的，可以保证每个命令的原子性。当一个命令执行的时候没有其他明星会运行。这是非常有用的，当你考虑一些命令执行多个事情的时候。举个例子：</p>
+
+<p><code>incr</code>可以跟在<code>set</code>后
+<code>getset</code> 可以set一个新值然后返回原先的
+<code>setnx</code> 首先检查key是否存在，只有不存的时候才set。</p>
+
+<p>这些命令都很有用。你必须运行多个命令作为一个原子。你首先发出多个命令，然后你想让所有命令座位事务的一部分，然后顺序执行，或者全部撤销。是什么能保证Redis的事务？</p>
+
+<ul>
+<li>命令会按顺序执行</li>
+<li>这些命令会按一个原子执行</li>
+<li>要不是所有命令都执行，要不就一个都不能执行</li>
+</ul>
+
+
+<p>你可以在终端中试试。注意为什么不能结合管道一起用:</p>
+
+<pre><code>multi
+hincrby groups:1percent blance  -9000000000
+hincrby groups:99percent balance 9000000000
+exec
+</code></pre>
+
+<p>最后Redis让你贯穿指定的一个key或多个key。这用于当你获得values然后操作这些value。在之前的代码，一旦运行我们不能实现自己的<code>incr</code>命令：</p>
+
+<pre><code>redis.multi()
+current = redis.get('powerlevel')
+redis.set('powerlevel',current+1)
+redis.exec()
+</code></pre>
+
+<p>这就是Redis的事务为什么不好使。但是如果我们给 powerlevel加个watch：</p>
+
+<pre><code>redis.watch('powerlevel')
+current = redis.get('powerlevel')
+redis.multi()
+redis.set('powerlevel',current+1)
+redis.exec()
+</code></pre>
+
+<p>如果另一个客户端在我们watch了后改变了powerlevel的值，我们的事务就会失败。如果没有客户端改变value，这个set就会好使。我们可以执行这段代码在一个循环中之道好使为止。</p>
+
+<h2>Keys的反模式</h2>
+
+<p>在下一章，我们将谈论一些不是指定的数据结构的命令。其中一些是管理或调试的工具。但是有一个我要特别相信的说一下：keys命令。这个命令是一个模式，能找到匹配的keys。这个名利似乎适合一些任务，但是这个不能用到生产环境中。为什么？因为他是线性的搜索所有匹配的keys。简单的说，速度慢。</p>
+
+<p>怎么用呢？你要家里一个处理bug的服务。每一账户会有一个id，然后你觉得存储每个bug为一个string value 像 bug:account_id:bug_id。如果你需要找到所有相互的bugs（显示这些，或者删除他们），你会试着：</p>
+
+<pre><code>keys bug:1233:*
+</code></pre>
+
+<p>好的解决方式是用hash。我能用hash提供一个副引用。所以我们能用他们组织我们的数据：</p>
+
+<pre><code>hset  bugs:1233 1 "{id:1,account:1233,subject:'...'}"
+hset  bugs:1233 2 "{id:2,account:1233,subject:'...'}"
+</code></pre>
+
+<p>为了获得一个账号所有的bug ids 我们只需简单的调用 <code>hkeys bugs：1233</code>。删除指定的bug我们调用<code>hdel bugs:1233 2</code>然后我们要删除一个账户 我们可以用<code>del bugs:1223</code>。</p>
+
+<h2>小节</h2>
+
+<p>结合前一章，我们展示了Redis的一些强大的功能。还有很多其他的模式你可以构建自己的类型的数据。但重要的是要了解基本的数据结构，了解后用他们实现属于自己的。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Redis系列教程3]]></title>
+    <link href="http://GeforceLee.github.io/blog/2013/05/04/Redis-Tutorials-3/"/>
+    <updated>2013-05-04T00:00:00+08:00</updated>
+    <id>http://GeforceLee.github.io/blog/2013/05/04/Redis-Tutorials-3</id>
+    <content type="html"><![CDATA[<h1>Redis系列教程3</h1>
+
+<p>2013-05-04 By</p>
+
+<h1>第二章  数据结构</h1>
+
+<p>是时候该看看Redis的五种数据结构了。接下来解释下每一个数据结构。了解什么方法有效，并且要用什么数据结构表示什么样的数据。</p>
+
+<p>我们只了解了keys和values的命令。还没有了解数据结构。当我们用set命令，Redis是怎么知道要用什么数据结构？事实证明，每一个命令是特定的数据结构。举个例子，当你用set存储value存储的是string的数据结构。当用hset存储的是hash，这些命令很好掌握。</p>
+
+<p>Redis的网站有很好的文档。因此在这就没有做一些别人弄好的事情。我们只了解最重要的一些命令。</p>
+
+<p>没有什么比有趣的事情和尝试新事物更重要的。你可以通过使用 <code>flushdb</code> 命令清楚所有values，所以请不要轻易使用。</p>
+
+<h2>String</h2>
+
+<p>string是Redis中最基础的数据结构。当你考虑用key-value是应当考虑string。不要看名字混淆，value可是任何数据。</p>
+
+<p>我们已经看到一个string的例子，存储一个实例。这个要经常用到：</p>
+
+<pre><code>set users:leto "{name: leto, planet: dune, likes: [spice]}"
+</code></pre>
+
+<p>此外Redis让你做一些常规的操作，像 <code>strlen&lt;key&gt;</code> 能获得key对应的value是长度。<code>getrange &lt;key&gt; &lt;start&gt; &lt;end&gt;</code> 将会返回制定的value的范围。<code>append &lt;key&gt;&lt;value&gt;</code> 会增加到已存在的value（如果不存将会创建）。试试上面的命令：</p>
+
+<pre><code>&gt; strlen users:leto
+(integer) 42
+
+&gt; getrange users:leto 27 40
+"likes: [spice]"
+
+&gt; append users:leto " OVER 9000!!"
+(integer) 54
+</code></pre>
+
+<p>现在，你可能会想，这很棒，但没有什么意义。你不会从JSON中取出一段，或者增加一些值。你是对的，这只是告诉你这些命令能做些什么。</p>
+
+<p>之前我们学些Redis不关心values。大多数时间是对的。然后一些string的命令是针对一些特殊类型或结构的values。一个模糊的解释，我们能看到之间的 <code>append</code>和<code>getrange</code>命令会对一些特定的序列化数据有效。接下来给出一些具体例子：<code>incr</code>,<code>incrby</code>,<code>decr</code>和<code>decrby</code>命令。这些可以升序或降序string：</p>
+
+<pre><code>&gt; incr stats:page:about
+(integer) 1
+
+&gt; incr stats:p ≈age:about
+(integer) 2
+
+&gt; incrby ratings:video:12333 5
+(integer) 5
+
+&gt; incrby ratings:video:12333 3
+(integer) 8
+</code></pre>
+
+<p>你可以设想，Redis的string很好的分解了。试着增加 users:leto (没有一个数字的value)然后看看会发生什么（你会得到一个error）</p>
+
+<p>一个先进的例子<code>setbit</code>和<code>getbit</code> 命令。这个很好的用在‘我们今天有多少访问’，在有1.28亿用户的数据，50ms内就能解决，期间只用了16MB内存。</p>
+
+<p>你不必关系位图怎么工作，或者内部怎么运转。但是要明白Redis的string是很强大的。不过，最常见的情况是，我们给上述存储对象（复杂与否）和计数器。另外，由于通过键得到的值是如此之快，字符串也常常用于高速缓存数据。</p>
+
+<h2>Hashes</h2>
+
+<p>Hashes正是一个可以说明Redis不只是key-value存储的好例子。在大多数情况下，hasher像是strings。最重要的区别是，他们提供了一个额外的连接：字段。因此下面的hash的命令跟<code>set</code>和<code>get</code>很相似：</p>
+
+<pre><code>hset users:goku powerlevel 9000
+hget users:goku powerlevel
+</code></pre>
+
+<p>我们可以一次set多个字段，也可以一次获得多个字段，获得所有的字段和values。列出多少的字段或删除一个指定的字段。</p>
+
+<pre><code>hmset users:goku race saiyan age 737
+hmget users:goku race powerlevel
+hgetall users:goku
+hkeys users:goku
+hdel users:goku age
+</code></pre>
+
+<p>正如你看到的。hahes提供给我的比string更多的方法。我们能更好的操作。我们更更好的更新一个指定的数据。而不是整个数据更新。</p>
+
+<p>定义好一个hash，像user，可以更好的理解他们是怎么运作的。出于性能的考虑，越颗粒的操作，越好用。在下一章我们将看到hashes更实际的组织数据和查询。这正是hashes的真正用武之地。</p>
+
+<h2>Lists</h2>
+
+<p>Lists可以用一个指定的key存储一个数组的数据。你可以增加values到list，可以获得第一个或最后一个数据。也可以操作指定序号的values。Lists支持排序和效率的继续下标操作。我们将有一个 newusers 列表。他姜记录新注册的users：</p>
+
+<pre><code>lpush newusers goku
+ltrim newusers 0 50
+</code></pre>
+
+<p>首先我们在list头添加了一个新的user。然后我们trim这个list，这是一个普通的命令。<code>ltrim</code>是一个时间复杂度为O(N)的操作，N就是我们要删除的输了。在这个例子中，时间复杂度是O(1)因为列表里就一个元素。</p>
+
+<p>这是第一次我们见到一个key引用一个value。如果我们想获得10个users的详细信息，看下面的联合查询：</p>
+
+<pre><code>keys = redis.lrange('newusers', 0, 10)
+redis.mget(*keys.map {|u| "users:#{u}"})
+</code></pre>
+
+<p>上面这是一段Ruby的代码段。这就是多次查询。</p>
+
+<p>当然，lists不仅仅是便于排序。values可以是任何数据。你可以存储logs和用户在网站上的操作。如果你是做游戏的，你可以存储用户的操作。</p>
+
+<h2>Sets</h2>
+
+<p>Set用于存储唯一的values，然后他提供了一系列的 set-based的操作。像 <code>unions</code>。Sets不是有序的，但他提供一些有效的给予values的操作。好友列表是用set的最经典的例子：</p>
+
+<pre><code>sadd friends:leto ghanima paul chani jessica
+sadd friends:duncan paul jessica alia
+</code></pre>
+
+<p>不管user有多少个friend，这个操作的时间复杂度都是O(1)，检查某user是否有制定的friend：</p>
+
+<pre><code>sismember friends:leto jessica
+sismember friends:leto vladimir
+</code></pre>
+
+<p>此外我们还能得到2个或多个人是否有同样的friends：</p>
+
+<pre><code>sinter friends:leto friends:duncan
+</code></pre>
+
+<p>并且可以用一个新的key存储对应的结果：</p>
+
+<pre><code>sinterstore friends:leto_duncan friends:leto friends:duncan
+</code></pre>
+
+<p>Sets很容易找出重复的数据。或者我们用set可以做交集和并集的操作。</p>
+
+<h3>Sorted Sets</h3>
+
+<p>最后一个也是最强大的数据结构就是sorted sets。如果说hashes是一个有字段的string的话，sorted sets就是sets带着分数。这个分数用于排序和等级。如果我们想排名好友列表的话，我们可以：</p>
+
+<pre><code>zadd friends:duncan 70 ghanima 95 paul 95 chani 75 jessica 1 vladimir
+</code></pre>
+
+<p>如果要找出duncan有多少好友分数是超过90的：</p>
+
+<pre><code>zcount friends:duncan 90 100
+</code></pre>
+
+<p>指出chani的等级：</p>
+
+<pre><code>zrevrank friends:duncan chani
+</code></pre>
+
+<p>我们用zrevrank代替zrank是因为Redis默认是从低到高，在这里我们需要的是从高到低。最明显的例子用的stored sets就是排行榜系统。事实上任何你想排序的，你都可以通过sorted sets标记一个分数来排序。</p>
+
+<h2>小结</h2>
+
+<p>这章我们主要了解了五种数据结构。Redis可以做比你想到的多得多的事情。一旦你了解了，你就会试图用Redis来解决一些问题。Redis提供了丰富的数据结构和方法，但没有必要全部掌握。要实现一个功能，可以用一些常用命令。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Redis系列教程2]]></title>
+    <link href="http://GeforceLee.github.io/blog/2013/05/03/Redis-Tutorials-2/"/>
+    <updated>2013-05-03T00:00:00+08:00</updated>
+    <id>http://GeforceLee.github.io/blog/2013/05/03/Redis-Tutorials-2</id>
+    <content type="html"><![CDATA[<h1>Redis系列教程2</h1>
+
+<p>2013-05-03 By</p>
+
+<h1>第一章  基础</h1>
+
+<p>是什么让Redis变得特殊？他解决了什么样的问题？开发者需要注意些什么？在我回答这些问题之前，我们需要理解什么是Redis。</p>
+
+<p>Redis通常被描述成内存中key-value的数据库。我认为那是一个不准确的描述。Redis把所有数据放到内存中（大部分以字节形式），并且把数据持久化在磁盘上，这比简单的key-value存储多多了。你不要站在这错误的观点上，否则你对Redis的观点和解决问题都是狭隘的。</p>
+
+<p>事实上Redis暴露出5个不同的数据结构,其中之一是key-value的结构。了解这5个数据结构，他们怎么工作的，他们有什么样的方法，你能怎么用这些建立你们的模型才是关键。首先咱们先了解下数据结构。</p>
+
+<p>如果我们使用一种数据结构来描述关系世界，我们大概会说数据库中的一个结构&mdash;table。Tables复杂并且比较灵活，没有什么你不能模拟，存储，操作的。然而他也有一些本质上的缺点。特别是，不是所有的都是简单或者快速的。如果想要一个结构适用所有的结果，我们是不是要使用一个专门的结构呢？有一些事情我们不能做至少到现在我们做的不好，但是我们要增加简单性和效率。</p>
+
+<p>用特殊的数据结构对待专门的问题？我们应该怎么code？你不能在每块数据用hashtable，也不能用标量变量。对于我，那就是定义Redis的途径。如果你正在处理标量，链表，哈希表，集合，为什么不把他存成标量，链表，哈希表，结合？为什么我们检查一个是否存在那么复杂的去调一个 exists（key），他的时间复杂度远大于O(1）</p>
+
+<h2>The BUilding Blocks</h2>
+
+<h3>数据库</h3>
+
+<p>Redis有一个你熟悉的基础概念就是database。一个database包含一个数据的集合。一个数据库经典的案例就是把一个应用的所有数据与另一个应用的数据分开。</p>
+
+<p>在Redis，database被简单的定义为一个数字，默认的数字是0.如果你想换到不同的数据库你可以通过 select 命令。在终端里，敲入 <code>select 1</code> 。Redis会回应OK的信息和一个类似 <code>127.0.0.1:6379[1]&gt;</code>的信息.如果你想换会默认数据库，只需要敲<code>select 0</code> 在终端。</p>
+
+<h3>Commands，Kyes and Value</h3>
+
+<p>当Redis不仅仅是Key-Value的存储，在核心，5个数据结构中的每一个都至少有一个Key和value。在继续学习其他知识前这是有必要了解Key和value的。</p>
+
+<p>Kyes是你如何识别一块数据。我们将会用keys操作，但是现在，最好了解一个key类似 users:leto。人们完全有理由期待这样一个key包含一个user名为leto的信息。冒号没有什么特殊的含义，但是用分隔符是通常人们组织他们的kyes。</p>
+
+<p>Values代表与key有关的实际的数据。他们能是任何数据。有些时候你需要要存储字符串，有时候是整型，有时候需要存储序列化结构（JSON，XML或者其他格式）。对于大多数，Redis对待values是一个字节数组，他不关心具体是什么。注意 不同的驱动处理序列化是不同的，所以在这教程中我们只谈论字符串，数字，和JSON。</p>
+
+<p>我们输入下面代码：</p>
+
+<pre><code>set users:leto ”{name: leto, planet: dune, likes: [spice]}”
+</code></pre>
+
+<p>这是一个基本的Redis的命令。首先我们有一个真实的命令：set。后面是他的参数。set命令有2个参数：一个是我们设置的key，另一个是key对应设置的value。大多数，但不是所有都需要key（如果这么多，通常是第一个参数）。你能猜到怎么获得value？希望你能说（不确定也不要担心）：</p>
+
+<pre><code>get users:leto
+</code></pre>
+
+<p>我们继续用一些新的组合。Keys和Value是一些基本的概念，</p>
+
+<h3>查询</h3>
+
+<p>当我们继续时，需要了解2件事。对于Redis，Keys就能得到一切，values什么也得不到。或者换种说法，Redis不允许你查询一个object的value。在上面的例子我们不能找到user(s) 那个住在planet dune。</p>
+
+<p>对于许多人来说，这是会引起一些不适应。我们现在的查询数据是那么灵活和强大，但是Redis的查询方法似乎有点原始和不实用。不要动摇。记住，Redis不是一个适用于所有结构的方案。有些不能放在这，因为查询的限制。所以考虑这样的因素，你就要好好设计的model。</p>
+
+<p>我们会看一些具体例子，但是重要的是了解Redis的基础。了解后能帮助我们理解为什么value是任何值了&mdash;-Redis从不需要了解他们是什么。同时他也能帮助我们思考新的模型。</p>
+
+<h3>内存和持久化</h3>
+
+<p>我之前提到Redis是内存中持久化存储。</p>
+
+<p>为了实现持久化，默认的Redis是把所有变化keys快照到硬盘上。你能配置如果X数量的keys改变，在Y秒内。Redis会保存数据库从每60秒内至少1000或更多的Kyes改变到15分钟内9个或更少的keys改变。</p>
+
+<p>另外Redis可以以增量的模式。一旦有一个key改变，一个增量的文件会更新到硬盘上。在一些特殊的情况下会丢失60秒的数据，为了换取一些性能。有时候这样的丢失数据是不可能接受的。Redis给了一些选项。在第六章的时候你会看到第三种选项，在从设备上持久化。</p>
+
+<p>相对于内存，Redis把所有的数据放在内存中。这事Redis运行的最明显的成本：内存在服务器硬件还是很贵的。我觉得一些开发者不能确定一个数据占多少空间。莎士比亚全集大概占5.5MB。Redis能帮你压缩到2MB.</p>
+
+<p>Redis支持虚拟内存，然后这个功能不建议使用。</p>
+
+<h3>总结到一起</h3>
+
+<p>我们触及到了一些高等级的主题。在使用Redis之前我想把这些主题总结一下。特别是查询限制，数据结构和在内存中存储数据。</p>
+
+<p>当你把这三个结合到一起，你应该想到速度了。一些人会说‘当然快了，因为所有的都在内存里’。但这只是其中的一部分。真正的原因就是他的特殊的数据结构。</p>
+
+<p>到底有多快？这要依据很多事&mdash;哪个明了你用了，数据的类型等等。但是Redis的性能可以在成百上千或者成千上万次每秒。你可以运行 <code>redis-benchmark</code>（和redis-server和redis-cli同一个目录下）自己测试下。</p>
+
+<p>了解Redis的趋势非常重要，因为它会影响你如何与它进行交互。有sql开发经验的开发者，通常他们对数据库所做工作的数量减至最少。对所有系统包括Redis而言这是一个好的忠告。然而考虑到我们正在处理简单的数据结构，我们就要通过多次调用Redis来达到目标。这样获得数据的模式开始有些不适应，但是在现实中，跟性能比，这些消耗是无关紧要的。</p>
+
+<h3>小结</h3>
+
+<p>我们已经了解了一些Redis。如果不太清楚想查询请不要担心。在下一章，我们会亲手操作，遇到的问题基本上都能解答。
+下面是这章的重点：</p>
+
+<ul>
+<li>Keys是定义数据（Values）的字符串</li>
+<li>Values是字节数组，Redis不关心具体是什么</li>
+<li>Redis有五个数据结构</li>
+<li>综合上述，Redis速度快，方便使用。但是不适合所有情景</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Redis系列教程1]]></title>
+    <link href="http://GeforceLee.github.io/blog/2013/05/03/Redis-Tutorials-1/"/>
+    <updated>2013-05-03T00:00:00+08:00</updated>
+    <id>http://GeforceLee.github.io/blog/2013/05/03/Redis-Tutorials-1</id>
+    <content type="html"><![CDATA[<h1>Redis系列教程1</h1>
+
+<p>2013-05-03 By</p>
+
+<h2>介绍</h2>
+
+<p>近些年来，关于查询存储数据发展到难以相信的地步。关系型数据库并不是到哪都好使的了，或者说现在的数据的生态系统并不是很相同。</p>
+
+<p>纵观这么多新工具和解决方案，对于我来说，Redis是最兴奋的。为什么呢？</p>
+
+<ul>
+<li>第一个原因就是非常简单就能学会。学习Redis也就是几小时的事。</li>
+<li>第二个原因就是它解决了一些特定的问题，而在同一时间是相当通用的。</li>
+</ul>
+
+
+<h2>开始</h2>
+
+<p>我们用不同于:code，看视频，和一些阅读。没有什么能真正帮助你理解Redis，除了真正的体验Redis。Redis的安装非常简单。</p>
+
+<h3>Windows</h3>
+
+<p>Redis它本身不是官方支持，但是这有一些其他选择。你不能把他运行在生产环境中。但是我在开发环境中没遇到什么限制。</p>
+
+<p>一个微软开放技术，你可以在 <a href="https://github.com/MSOpenTech/redis">https://github.com/MSOpenTech/redis</a>。写这个的时候还不能用到生产环境中。</p>
+
+<p>另一个解决方案，一些时候是好用的。可以在<a href="https://github.com/dmajkic/redis/downloads">https://github.com/dmajkic/redis/downloads</a>下载到。你可以下载最新版本（在列表的最上面那个）。</p>
+
+<h3>Mac and *nix</h3>
+
+<p>对于Mac和*nix用户，从源码build是最好的选择。命令可以带着最新的版本号。我所的版本都在<a href="http://redis.io/download">http://redis.io/download</a>。当写这个教程的时候最新的版本是2.6.2
+安装命令：</p>
+
+<pre><code>wget http://redis.googlecode.com/files/redis-2.6.2.tar.gz   tar xzf redis-2.6.2.tar.gz  cd redis-2.6.2  make
+</code></pre>
+
+<p>或者Reids可以通过包管理（可以通过Homebrew 安装）</p>
+
+<p>如果你是build源码，一个二级制文件会在src目录下出现。通过 cd scr 到对应的路径。</p>
+
+<h3>运行&amp;连接 Redis</h3>
+
+<p>如果一切正常,Redis二进制文件就在你眼前。Redis有一些可执行文件。我们的焦点放在Redis server和Redis命令行工具。让我们开始server。在windows中双击redis-server，在*nix和mac上 执行./redis-server。</p>
+
+<p>如果你看到初始化信息你会看到一个警告，redis.conf文件没有找到。Redis会默认用built-in，这对我们所做很好。</p>
+
+<p>下一步运行 redis-cli 和上一步一样。这回让你连接到当前运行的server 在默认的端口（6379）。</p>
+
+<p>你可以通过在命令行中敲入 info  查看所有的信息。你可以到一连串的key-value 服务器信息。</p>
+
+<p>如果你遇到什么问题，你可以在<a href="https://groups.google.com/forum/#!forum/redis-db">https://groups.google.com/forum/#!forum/redis-db</a>查找一些指点</p>
+
+<h3>Redis驱动</h3>
+
+<p>作为你很快就会学到，Redis 的Api是最好的描述他的功能。他在程序上表现非常简单。这意味这你可以在命令行上或者用你熟悉的语言操作都是一样的简单。因此你不会有关于编程语言是的问题。如果你想概览下客户端列表可以在<a href="http://redis.io/clients">http://redis.io/clients</a>中找到</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[iOS CrashReport]]></title>
+    <link href="http://GeforceLee.github.io/blog/2013/01/21/iOSCrashReport/"/>
+    <updated>2013-01-21T00:00:00+08:00</updated>
+    <id>http://GeforceLee.github.io/blog/2013/01/21/iOSCrashReport</id>
+    <content type="html"><![CDATA[<h1>iOS CrashReport</h1>
+
+<p>2013-01-13 By</p>
+
+<p>Make sure you set the right DEVELOPER_DIR:</p>
+
+<pre><code>export DEVELOPER_DIR="/Applications/XCode.app/Contents/Developer"
+</code></pre>
+
+<p>You will want to follow the same steps as outlined in the original answer (below) with a few exceptions.</p>
+
+<p>First, you need to fix the Xcode path. Open a terminal and run:</p>
+
+<pre><code>/usr/bin/xcode-select -print-path
+</code></pre>
+
+<p>If it displays &ldquo;/Developer&rdquo; or anything but &ldquo;/Applications/Xcode.app/Contents/Developer/&rdquo; then it is wrong. To fix this run the command:</p>
+
+<pre><code>sudo /usr/bin/xcode-select -switch /Applications/Xcode.app/Contents/Developer/
+</code></pre>
+
+<p>You can now run all the steps below, with the exception that the symbolicatecrash command is in a new spot (again). This is because Xcode now installs as an app. To find symbolicatecrash run this from the terminal:</p>
+
+<pre><code>find /Applications/Xcode.app -name symbolicatecrash -type f
+</code></pre>
+
+<p>This should return:</p>
+
+<pre><code>/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/PrivateFrameworks/DTDeviceKit.framework/Versions/A/Resources/symbolicatecrash
+</code></pre>
+
+<p>Before running symbolicatecrash you may wish to go to this directory like:</p>
+
+<pre><code>cd /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/PrivateFrameworks/DTDeviceKit.framework/Versions/A/Resources/
+</code></pre>
+
+<p>Final</p>
+
+<pre><code>symbolicatecrash xx.crash xx.dSYM &gt;xxx
+</code></pre>
 ]]></content>
   </entry>
   

@@ -1,0 +1,343 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Redis系列教程5 - GeforceLee's Blog</title>
+    <meta name="author" content="GeforceLee">
+    
+	<meta name="description" content="基于数据结构">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="GeforceLee's Blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+
+    <!-- remove or comment it to disable ajaxification -->   
+    <script src="/javascripts/ajaxify.js"></script>
+   
+    
+    
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-37558768-2']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+</head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        GeforceLee
+    </div>
+</h1>
+<br>
+
+<ul id="social-links" style="text-align:center">
+  
+  <!-- GitHub -->
+  <li>
+  <a href="https://github.com/GeforceLee" class="github" title="Github"></a>
+  </li>
+  
+  
+  
+  
+  <!-- Twitter -->
+  <li>
+  <a href="http://www.twitter.com/GeforceLee" class="twitter" title="Twitter"></a>
+  </li>
+  
+  
+  
+  
+  
+  
+  <!-- weibo -->
+  <li>
+  <a href="http://www.weibo.com/314004856" class="weibo" title="Weibo"></a>
+  </li>
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">主页</a></li>
+	<li id="ajax"><a href="/blog/archives/index.html">Blog</a></li>
+     <li><a href="/about">关于我</a></li>
+    
+    <li>
+    <div id="dark">
+        <form method="get" action="/search.html" id="search">
+            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload --> 
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">Redis系列教程5</h2>
+	<div class="entry-content"><h1>Redis系列教程5</h1>
+
+<p>2013-05-06 By</p>
+
+<h1>第三章  基于数据结构</h1>
+
+<p>Redis提供了五种数据结构，这有一些不是数据结构的命令。我们已经看到一些有用的命令：info，select，flushdb，multi，exec，discard，watch和kyes。这章我们会了解一些其他的重要的命令。</p>
+
+<h2>过期</h2>
+
+<p>Redis提供了你一个key 的存活期限，你可以给一个绝对时间（自1970年1月1日到现在的秒）或者是从现在开始的秒数。这是基于key的命令。所以value是什么都无所谓。</p>
+
+<pre><code>expire pages:about 30
+expireat pages:about 1256933600
+</code></pre>
+
+<p>第一个命令会在30秒后删除key。第二个做同样的是在2012年11月31号的12点。</p>
+
+<p>这使Redis变成一个理想的缓冲引擎。你可以通过<code>ttl</code>命令查看一个key 存活了多久，你也可以删除一个key的过期时间：</p>
+
+<pre><code>ttl pages:about
+presist pages:about
+</code></pre>
+
+<p>最后，这有一个特殊的命令，<code>setex</code>让你设置指定的string，他是一个原子命令:</p>
+
+<pre><code>setex pages:about 30 '&lt;h1&gt;about us&lt;/h1&gt;....'
+</code></pre>
+
+<h2>发布和订阅</h2>
+
+<p>Redis的list有<code>blpop</code>和<code>brpop</code>命令。他们返回删除的第一个元素并且返回。这可以很有用的用到一个简单的队列里。</p>
+
+<p>基于这些，Redis很好的提供发布信息和订阅频道的功能。你可以打开一个新的redis-cli串口试试。在第一个窗口订阅频道：</p>
+
+<pre><code>subscrive warnings
+</code></pre>
+
+<p>回应小心。现在你在另一个窗口，发布一个消息：</p>
+
+<pre><code>publish warnigns "it's over 9000!"
+</code></pre>
+
+<p>如果你回到第一个窗口，你会接收到消息。</p>
+
+<p>你可以订阅多个频道（subscribe channel1 channel2 &hellip;）订阅频道的模式（psubscribe warnings:*） 用<code>unsubscribe</code> 和 <code>punsubscribe</code>命令停止监听。</p>
+
+<p>最后，注意<code>publish</code>命令返回的值：1。就是监听客户端的数量。</p>
+
+<h2>监控和慢记录</h2>
+
+<p><code>monitor</code>命令让你了解Redis运行状况。这是一个很好的调试工具了解你的应用程序与Redis的联系。在其中一个redis-cli的窗口中（如果你还在subscribed，你可以用unsubscribe命令取消，或者关闭重新开一个）敲入<code>monitor</code>命令。在另一个，执行一个命令。你可以看到这些信息。</p>
+
+<p>在生产环境上用还是要注意吧。因为这是一个开发和测试工具。这没有什么多说的。</p>
+
+<p>配合这monitor，Redis有一个<code>slowlog</code>这是一伟大的分析工具。他会log出消耗超过指定毫秒的命令。下一章我们会简单的了解下怎么配置Redis。现在你能配置Redis log出所有的命令：</p>
+
+<pre><code>config set slowlog-log-slower-than 0
+</code></pre>
+
+<p>下一步，用一些命令，最后你能得到所有的log。获得最近的logs通过：</p>
+
+<pre><code>slowlog get
+slowlog get 10
+</code></pre>
+
+<p>你也可以获得数量通过输入slowlog len</p>
+
+<p>从每个你输入的命令你能看到4个参数：</p>
+
+<ul>
+<li>一个自增的id</li>
+<li>一个命令产生的时间戳</li>
+<li>命令消耗多少时间（ms）</li>
+<li>命令本身和参数</li>
+</ul>
+
+
+<p>slowlog在内存中维护，所以在生产环境中要慎重。</p>
+
+<h2>排序</h2>
+
+<p>Redis最重要的命令之一就是排序。他让你在list，set，sorted set中排序。在最简单的形式：</p>
+
+<pre><code>rpush users:leto:guesses 5 9 10 2 4 10 19 2
+sort users:leto:guesses
+</code></pre>
+
+<p>上面返回的是从低到高的排序后结果。</p>
+
+<pre><code>sadd friends:ghanima leto paul chani jessica alia duncan
+sort friends:ghanima limit 0 3 desc alpha
+</code></pre>
+
+<p>在上面的命令展示出我们应该如何分页排序好的记录（通过limit），怎么获得倒序（通过desc），通过字典排序规则代替数字规则（通过 alpha）。</p>
+
+<p>排序的真正强大之处应该是根据引用的object排序。之前我们展示了lists，sets，sorted sets经常引用其他Redis的object。<code>sort</code>命令很解除引用，然后通过一些值排序。举个例子，我们有一个bug追中器，能让用户看到问题。我们可能会用set去跟踪：</p>
+
+<pre><code>sadd watch:leto 12339 1282 338 9338
+</code></pre>
+
+<p>这可能会根据id排序会更好（默认就是这么做的），但是我们也想根据严重等级排序。为了这么做我们会告诉Redis排序的参数。首先我们增加一些对结构有意义的数据：</p>
+
+<pre><code>set severity:12339 3
+set severity:1382 2
+set severity:338 5
+set severity:9338 4
+</code></pre>
+
+<p>通过严重等级排序bugs：</p>
+
+<pre><code>sort watch:leto by severity:* desc
+</code></pre>
+
+<p>Redis会替换*为我们传的参数。这会创建实际的key对应的value，然后排序。</p>
+
+<p>虽然你可以在Redis中有很多的kyes，我想上面的例子你可能会有凌乱。幸好排序也同样适合在hashes的字段上。替换最高级的keys你可以用hashes：</p>
+
+<pre><code>hset bug:12339 severity 3
+hset bug:12339 priority 1
+hset bug:12339 details ”{id: 12339, ....}”
+
+hset bug:1382 severity 2
+hset bug:1382 priority 2
+hset bug:1382 details ”{id: 1382, ....}”
+
+hset bug:338 severity 5
+hset bug:338 priority 3
+hset bug:338 details ”{id: 338, ....}”
+
+hset bug:9338 severity 4
+hset bug:9338 priority 2
+hset bug:9338 details ”{id: 9338, ....}”
+</code></pre>
+
+<p>不仅整齐了，我们还能通过severity或者priority排序，同时我们还可以通过排序获得：</p>
+
+<pre><code>sort watch:leto by bug:*-&gt;priority get bug:*-&gt;details
+</code></pre>
+
+<p>同样的结果。Redis认出->序列，然后查找出hash里的指定字段。我们同时也加了get参数，定义了子查询来获得bug的详细信息。</p>
+
+<p>在大set里，排序会变得很慢。好消息是排过序的输出可以存储：</p>
+
+<pre><code>sort watch:leto by bug:*-&gt;priority get bug:*-&gt;details store watch_by_priority:leto
+</code></pre>
+
+<p>存储一个排序后的结果，做一个漂亮的连招。</p>
+
+<h2>小节</h2>
+
+<p>在这章我们关注非数据结构命令。这些命令因情况而定。不一定每个应用都会用到expiration，publication/subscription 或者排序。但是在这都有了了解。我们在这只用了其中一些命令。文档上会有全部的命令<a href="http://redis.io/commands">http://redis.io/commands</a></p>
+</div>
+
+<div class="meta">
+	
+		<span class="comments"><a href="/blog/2013/05/06/Redis-Tutorials-5/#disqus_thread">Comments</a></span>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2013
+
+    GeforceLee
+. Powered by <a href="http://octopress.org">Octopress</a> | 
+    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'geforceleeoctopress';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://GeforceLee.github.io/blog/2013/05/06/Redis-Tutorials-5/';
+        var disqus_url = 'http://GeforceLee.github.io/blog/2013/05/06/Redis-Tutorials-5/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

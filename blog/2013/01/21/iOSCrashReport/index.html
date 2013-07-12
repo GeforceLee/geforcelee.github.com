@@ -3,10 +3,10 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Category: test - GeforceLee's Blog</title>
+	<title>iOS CrashReport - GeforceLee's Blog</title>
     <meta name="author" content="GeforceLee">
     
-	<meta name="description" content="Category: test">
+	<meta name="description" content="iOS CrashReport">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -106,30 +106,68 @@
 <div id="toload">
 <!-- begin toload --> 
     <div id="content" class="inner">
-        
+        <article class="post">
+	<h2 class="title">iOS CrashReport</h2>
+	<div class="entry-content"><h1>iOS CrashReport</h1>
+
+<p>2013-01-13 By</p>
+
+<p>Make sure you set the right DEVELOPER_DIR:</p>
+
+<pre><code>export DEVELOPER_DIR="/Applications/XCode.app/Contents/Developer"
+</code></pre>
+
+<p>You will want to follow the same steps as outlined in the original answer (below) with a few exceptions.</p>
+
+<p>First, you need to fix the Xcode path. Open a terminal and run:</p>
+
+<pre><code>/usr/bin/xcode-select -print-path
+</code></pre>
+
+<p>If it displays &ldquo;/Developer&rdquo; or anything but &ldquo;/Applications/Xcode.app/Contents/Developer/&rdquo; then it is wrong. To fix this run the command:</p>
+
+<pre><code>sudo /usr/bin/xcode-select -switch /Applications/Xcode.app/Contents/Developer/
+</code></pre>
+
+<p>You can now run all the steps below, with the exception that the symbolicatecrash command is in a new spot (again). This is because Xcode now installs as an app. To find symbolicatecrash run this from the terminal:</p>
+
+<pre><code>find /Applications/Xcode.app -name symbolicatecrash -type f
+</code></pre>
+
+<p>This should return:</p>
+
+<pre><code>/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/PrivateFrameworks/DTDeviceKit.framework/Versions/A/Resources/symbolicatecrash
+</code></pre>
+
+<p>Before running symbolicatecrash you may wish to go to this directory like:</p>
+
+<pre><code>cd /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/PrivateFrameworks/DTDeviceKit.framework/Versions/A/Resources/
+</code></pre>
+
+<p>Final</p>
+
+<pre><code>symbolicatecrash xx.crash xx.dSYM &gt;xxx
+</code></pre>
+</div>
+
+<div class="meta">
 	
-
-
+		<span class="comments"><a href="/blog/2013/01/21/iOSCrashReport/#disqus_thread">Comments</a></span>
 	
-	
-	<section class="archives"><h1 class="year">2013</h1>
-
-<article>
-  <h2 class="title"><a href="/blog/2013/07/11/test/">Test</a></h2>
-	<div class="meta">
-		<span class="date">Jul 11</span>
-		<span class="tags">
-
-
-	<a class='category' href='/blog/categories/test/'>test</a>
-
-
-</span>
-	    
-	    <span class="comments"><a href="/blog/2013/07/11/test/#disqus_thread">Comments</a></span>
-	    
-	</div>
+</div>
 </article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
 
 
 

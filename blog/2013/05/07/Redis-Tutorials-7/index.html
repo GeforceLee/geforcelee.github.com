@@ -1,0 +1,259 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Redis系列教程7 - GeforceLee's Blog</title>
+    <meta name="author" content="GeforceLee">
+    
+	<meta name="description" content="管理">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="GeforceLee's Blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+
+    <!-- remove or comment it to disable ajaxification -->   
+    <script src="/javascripts/ajaxify.js"></script>
+   
+    
+    
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-37558768-2']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+</head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        GeforceLee
+    </div>
+</h1>
+<br>
+
+<ul id="social-links" style="text-align:center">
+  
+  <!-- GitHub -->
+  <li>
+  <a href="https://github.com/GeforceLee" class="github" title="Github"></a>
+  </li>
+  
+  
+  
+  
+  <!-- Twitter -->
+  <li>
+  <a href="http://www.twitter.com/GeforceLee" class="twitter" title="Twitter"></a>
+  </li>
+  
+  
+  
+  
+  
+  
+  <!-- weibo -->
+  <li>
+  <a href="http://www.weibo.com/314004856" class="weibo" title="Weibo"></a>
+  </li>
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">主页</a></li>
+	<li id="ajax"><a href="/blog/archives/index.html">Blog</a></li>
+     <li><a href="/about">关于我</a></li>
+    
+    <li>
+    <div id="dark">
+        <form method="get" action="/search.html" id="search">
+            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload --> 
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">Redis系列教程7</h2>
+	<div class="entry-content"><h1>Redis系列教程7</h1>
+
+<p>2013-05-07 By</p>
+
+<h1>第六章 管理</h1>
+
+<p>最后一章我们要了解对运行的Redis进行管理。这不是一个Redis管理综合的指南。在这我们只能了解一些基础的知识。</p>
+
+<h2>配置</h2>
+
+<p>当你第一次启动Redis server的时候，会出现警告：<code>redis.conf</code> 文件没有找到。这个文件是配置Redis用的。每次发布Redis的时候都有一个写的很详细的<code>redis.conf</code>。例子文件包含了默认的Redis配置选项，这对我们了解每个设置都是什么很有帮助。你可以在<a href="https://github.com/antirez/redis/raw/2.4.6/redis.conf">https://github.com/antirez/redis/raw/2.4.6/redis.conf</a>找到。</p>
+
+<p>这个配置文件是Redis2.4.6版本的。你可以通过<code>info</code>命令查看你当前的版本。</p>
+
+<p>因为这个文件注释很详细，我们就不在这一一介绍了。</p>
+
+<p>我们要给<code>redis.conf</code>文件增加内容，就用<code>config set</code>命令，我们之前就设置了<code>slowlog-log-slower-than</code> 为0。</p>
+
+<p>这还有一个<code>config get</code>命了显示设置的命令。这个命令还支持参数匹配。所以如果我们想显示所有跟log有关的我们可以用：</p>
+
+<pre><code>config get *log*
+</code></pre>
+
+<h2>验证</h2>
+
+<p>Redis能配置成需要密码的。可以通过<code>requirepass</code>设置（可以通过<code>redis.conf</code>文件或者<code>config set</code>命令设置）客户端需要用<code>auth password</code>命令。一旦客户端被验证，就可以用任何命令了。通过配置你可以给命令改名字：</p>
+
+<pre><code>rename-command CONFIG 5ec4db169f9d4dddacbfb0c26ea7e5ef
+rename-command FLUSHALL 1041285018a942a4922cbf76623b741e
+</code></pre>
+
+<p>或者你可以设置一个命令问空字符串来关闭命令。</p>
+
+<h2>大小限制</h2>
+
+<p>当你开始用Redis的时候，你可能很想知道 你能有多少个key呢？或者在hash中你能有多少个字段呢？或者在list中能有多少个元素呢？每个实例实际限制都是亿万的。</p>
+
+<h2>Replication</h2>
+
+<p>Redis支持复制，这就意味这让你写一个Redis实例（master），一个或多个实例（slaves）可以跟着主服务器一起更新。你可以配置一个slave通过用<code>slaveof</code>配置设置或者通过<code>slaveof</code>命令。</p>
+
+<p>复制帮助我们保护数据通过考配到其他服务器上。Replication可以提高性能通过读分发到slaves上。不过这会得到一些过期的数据，但是很多应用是可以做一些权衡。</p>
+
+<p>不幸的的是Redis还不支持自动的故障转移。如果master down了，salve必须手动的promoted。传统的高级工具会用一个心跳监控脚本来切换。</p>
+
+<h2>备份</h2>
+
+<p>备份Redis就是简单的将master拷贝一个快照到指定的位置（S3，FTP&hellip;）。默认的Redis保存快照是一个名为<code>dump.rdb</code>的文件。在任何时间点，你可以简单的<code>scp</code>,<code>ftp</code>,<code>cp</code>这文件。</p>
+
+<p>关闭快照和只赠文件（aof）在master上而让slave做这些。这回减少master的压力。</p>
+
+<h2>缩放和Redis集群</h2>
+
+<p>Replication是第一个要用的。一些花费较高的命令（像sort）把他们分配到slave上执行可以挺高性能。</p>
+
+<p>根据这个，我们可以分配kyes到多个Redis实例中（可以在同一个内存中，同一个机器）。目前这是你需要考虑的（虽然一些Redis的驱动提供同样的逻辑）。这教程就不告诉怎么把你的数据水平分布了。目前你不要担心的，但是当你用的是要考虑好。</p>
+
+<p>好消息就是Redis集群正在完善。不仅提供水平伸缩，还提供的自动失效备份。</p>
+
+<p>高性能可伸缩我们先在就可以达成，只要你愿意把时间和经历放在里面。Redis机会使事情变得简单。</p>
+
+<h2>小节</h2>
+
+<p>在这章给出了一些在Redis 应用的项目和站点。不用怀疑Reids，因为一个运行了一段时间，然而一些工具，特别是在安全和可用性上还比较年轻。Redis Cluster希望很快就能面面市。</p>
+
+<h1>总结</h1>
+
+<p>Redis可以简单高效的为你存储数据。要好好的利用他就要系统的学习。</p>
+</div>
+
+<div class="meta">
+	
+		<span class="comments"><a href="/blog/2013/05/07/Redis-Tutorials-7/#disqus_thread">Comments</a></span>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2013
+
+    GeforceLee
+. Powered by <a href="http://octopress.org">Octopress</a> | 
+    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'geforceleeoctopress';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://GeforceLee.github.io/blog/2013/05/07/Redis-Tutorials-7/';
+        var disqus_url = 'http://GeforceLee.github.io/blog/2013/05/07/Redis-Tutorials-7/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>
