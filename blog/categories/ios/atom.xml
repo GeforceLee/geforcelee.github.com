@@ -4,7 +4,7 @@
   <title><![CDATA[Category: iOS | GeforceLee's Blog]]></title>
   <link href="http://GeforceLee.github.io/blog/categories/ios/atom.xml" rel="self"/>
   <link href="http://GeforceLee.github.io/"/>
-  <updated>2013-07-12T13:50:23+08:00</updated>
+  <updated>2013-07-12T13:54:23+08:00</updated>
   <id>http://GeforceLee.github.io/</id>
   <author>
     <name><![CDATA[GeforceLee]]></name>
@@ -18,11 +18,7 @@
     <link href="http://GeforceLee.github.io/blog/2013/01/21/iOSCrashReport/"/>
     <updated>2013-01-21T00:00:00+08:00</updated>
     <id>http://GeforceLee.github.io/blog/2013/01/21/iOSCrashReport</id>
-    <content type="html"><![CDATA[<h1>Category: iOS</h1>
-
-<p>2013-01-13 By </p>
-
-<p>Make sure you set the right DEVELOPER_DIR:</p>
+    <content type="html"><![CDATA[<p>Make sure you set the right DEVELOPER_DIR:</p>
 
 <pre><code>export DEVELOPER_DIR="/Applications/XCode.app/Contents/Developer"
 </code></pre>
