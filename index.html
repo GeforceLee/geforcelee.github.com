@@ -6,7 +6,8 @@
 	<title>GeforceLee's Blog</title>
     <meta name="author" content="GeforceLee">
     
-	<meta name="description" content=" Published on: Jul 12th, 2013 Tags: Node.js, iOS 忙了一下午终于把这个Push弄完了 期间查了很多的资料都或多或少的遇到了些问题 废话不多说了 阅读全文&rarr; Comments ">
+	<meta name="description" content="Published on: Oct 22nd, 2013 Tags: C++, SublimeText 在Tools下的Build System中选择new build system
+输入 { "cmd": ["clang++", "-std=c++11", "${file}", "-o &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -107,6 +108,70 @@
 <!-- begin toload --> 
     <div id="content" class="inner">
         
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/10/22/sublimetextbian-yi-c-plus-plus-11/">
+		
+			SublimeText编译c++11</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-22T22:38:00+08:00" pubdate data-updated="true">Oct 22<span>nd</span>, 2013</time></div>
+      <div class="tags">Tags: 
+
+
+	<a class='category' href='/blog/categories/c-plus-plus/'>C++</a>, <a class='category' href='/blog/categories/sublimetext/'>SublimeText</a>
+
+
+</div>
+    </div>
+		<p>在Tools下的Build System中选择new build system
+输入</p>
+
+<pre><code>{
+ "cmd": ["clang++", "-std=c++11", "${file}", "-o", "${file_path}/${file_base_name}"], // For GCC On Windows and Linux
+ //"cmd": ["CL", "/Fo${file_base_name}", "/O2", "${file}"],     // For CL on Windows Only
+ "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+ "working_dir": "${file_path}",
+ "selector": "source.c, source.c++",
+
+ "variants":
+ [
+      {
+           "name": "Run",
+           "cmd": ["bash", "-c", "clang++ -std=c++11 '${file}' -o '${file_path}/${file_base_name}' &amp;&amp; '${file_path}/${file_base_name}'"]  // Linux Only
+           //"cmd": ["CMD", "/U", "/C", "clang++ -std=c++11 ${file} -o ${file_base_name} &amp;&amp; ${file_base_name}"]  // For GCC On Windows Only
+           //"cmd": ["CMD", "/U", "/C", "CL /Fo${file_base_name} /O2 ${file} &amp;&amp; ${file_base_name}"]   // For CL On Windows Only
+      }
+ ]
+}
+</code></pre>
+
+		
+		
+	</div>
+
+<div class="meta">
+	
+		<span class="comments"><a href="/blog/2013/10/22/sublimetextbian-yi-c-plus-plus-11//index.html#disqus_thread">Comments</a></span>
+	
+</div>
+</article>
 
 
     <article class="post">

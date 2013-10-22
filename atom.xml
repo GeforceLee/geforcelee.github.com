@@ -4,7 +4,7 @@
   <title><![CDATA[GeforceLee's Blog]]></title>
   <link href="http://GeforceLee.github.io/atom.xml" rel="self"/>
   <link href="http://GeforceLee.github.io/"/>
-  <updated>2013-07-13T14:41:01+08:00</updated>
+  <updated>2013-10-22T22:43:39+08:00</updated>
   <id>http://GeforceLee.github.io/</id>
   <author>
     <name><![CDATA[GeforceLee]]></name>
@@ -12,6 +12,35 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[SublimeText编译c++11]]></title>
+    <link href="http://GeforceLee.github.io/blog/2013/10/22/sublimetextbian-yi-c-plus-plus-11/"/>
+    <updated>2013-10-22T22:38:00+08:00</updated>
+    <id>http://GeforceLee.github.io/blog/2013/10/22/sublimetextbian-yi-c-plus-plus-11</id>
+    <content type="html"><![CDATA[<p>在Tools下的Build System中选择new build system
+输入</p>
+
+<pre><code>{
+ "cmd": ["clang++", "-std=c++11", "${file}", "-o", "${file_path}/${file_base_name}"], // For GCC On Windows and Linux
+ //"cmd": ["CL", "/Fo${file_base_name}", "/O2", "${file}"],     // For CL on Windows Only
+ "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+ "working_dir": "${file_path}",
+ "selector": "source.c, source.c++",
+
+ "variants":
+ [
+      {
+           "name": "Run",
+           "cmd": ["bash", "-c", "clang++ -std=c++11 '${file}' -o '${file_path}/${file_base_name}' &amp;&amp; '${file_path}/${file_base_name}'"]  // Linux Only
+           //"cmd": ["CMD", "/U", "/C", "clang++ -std=c++11 ${file} -o ${file_base_name} &amp;&amp; ${file_base_name}"]  // For GCC On Windows Only
+           //"cmd": ["CMD", "/U", "/C", "CL /Fo${file_base_name} /O2 ${file} &amp;&amp; ${file_base_name}"]   // For CL On Windows Only
+      }
+ ]
+}
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[用node-apn发Apple Push]]></title>
