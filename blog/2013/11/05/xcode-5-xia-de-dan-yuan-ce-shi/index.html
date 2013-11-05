@@ -119,6 +119,9 @@
 <p>里面会出现个新的选项&mdash;Xcode
 <img src="/images/unittest/QQ20131105-12.png"></p>
 
+<!-- more -->
+
+
 <h3>从头开始</h3>
 
 <p>创建项目</p>
@@ -167,6 +170,18 @@
 <p>选择Create Bot</p>
 
 <p><img src="/images/unittest/QQ20131105-10.png"></p>
+
+<p>然后就可以上传对应代码.这里用的是Git</p>
+
+<p>上传后Xcode中显示</p>
+
+<p><img src="/images/unittest/QQ20131105-11.png"></p>
+
+<p>以上就是Xcode5和新版Server自带的测试工具.</p>
+
+<p>如果之前用Xcode 4的开发这可能会遇到不能执行测试的问题.
+因为Xcode中使用了新的测试框架<XCTest>
+解决办法是新加Target  把老的单元测试移到新Target中 然后用XCTest替换SenTesting</p>
 </div>
 
 <div class="meta">

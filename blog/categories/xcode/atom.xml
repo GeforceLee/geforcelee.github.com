@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Xcode | GeforceLee's Blog]]></title>
   <link href="http://GeforceLee.github.io/blog/categories/xcode/atom.xml" rel="self"/>
   <link href="http://GeforceLee.github.io/"/>
-  <updated>2013-11-05T17:34:35+08:00</updated>
+  <updated>2013-11-05T17:45:07+08:00</updated>
   <id>http://GeforceLee.github.io/</id>
   <author>
     <name><![CDATA[GeforceLee]]></name>
@@ -26,56 +26,71 @@
 <h3>Server的变化</h3>
 
 <p>里面会出现个新的选项&mdash;Xcode
-{%img /images/unittest/QQ20131105-12.png %}</p>
+<img src="/images/unittest/QQ20131105-12.png"></p>
+
+<!-- more -->
+
 
 <h3>从头开始</h3>
 
 <p>创建项目</p>
 
-<p>{%img /images/unittest/QQ20131105-1.png %}</p>
+<p><img src="/images/unittest/QQ20131105-1.png"></p>
 
 <p>创建远程测试服务</p>
 
 <p>Product->Create Bot</p>
 
-<p>{%img /images/unittest/QQ20131105-2.png %}</p>
+<p><img src="/images/unittest/QQ20131105-2.png"></p>
 
 <p>Configure Remotes</p>
 
-<p>{%img /images/unittest/QQ20131105-3.png %}</p>
+<p><img src="/images/unittest/QQ20131105-3.png"></p>
 
 <p>Add</p>
 
-<p>{%img /images/unittest/QQ20131105-4.png %}</p>
+<p><img src="/images/unittest/QQ20131105-4.png"></p>
 
 <p>Create New Remote</p>
 
-<p>{%img /images/unittest/QQ20131105-5.png %}</p>
+<p><img src="/images/unittest/QQ20131105-5.png"></p>
 
 <p>Create</p>
 
-<p>{%img /images/unittest/QQ20131105-6.png %}</p>
+<p><img src="/images/unittest/QQ20131105-6.png"></p>
 
 <p>Next</p>
 
-<p>{%img /images/unittest/QQ20131105-7.png %}</p>
+<p><img src="/images/unittest/QQ20131105-7.png"></p>
 
 <p>这里面有很多选项
 1. 选择执行条件,这里我们选择On Commit(只要Commit 就执行测试)</p>
 
 <p>选择Next</p>
 
-<p>{%img /images/unittest/QQ20131105-8.png %}</p>
+<p><img src="/images/unittest/QQ20131105-8.png"></p>
 
 <p>选择测试的设备</p>
 
-<p>{%img /images/unittest/QQ20131105-9.png %}</p>
+<p><img src="/images/unittest/QQ20131105-9.png"></p>
 
 <p>这是成功或失败后发邮件的内容</p>
 
 <p>选择Create Bot</p>
 
-<p>{%img /images/unittest/QQ20131105-10.png %}</p>
+<p><img src="/images/unittest/QQ20131105-10.png"></p>
+
+<p>然后就可以上传对应代码.这里用的是Git</p>
+
+<p>上传后Xcode中显示</p>
+
+<p><img src="/images/unittest/QQ20131105-11.png"></p>
+
+<p>以上就是Xcode5和新版Server自带的测试工具.</p>
+
+<p>如果之前用Xcode 4的开发这可能会遇到不能执行测试的问题.
+因为Xcode中使用了新的测试框架<XCTest>
+解决办法是新加Target  把老的单元测试移到新Target中 然后用XCTest替换SenTesting</p>
 ]]></content>
   </entry>
   
