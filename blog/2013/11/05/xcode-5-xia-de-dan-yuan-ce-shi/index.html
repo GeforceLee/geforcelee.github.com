@@ -3,10 +3,11 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>about - GeforceLee's Blog</title>
+	<title>Xcode 5 下的单元测试 - GeforceLee's Blog</title>
     <meta name="author" content="GeforceLee">
     
-	<meta name="description" content="从客户端iOS+cocos2d转到后端NodeJS+Pomelo 完整经历过德州扑克项目开发。 目前就职于创业公司CandyStudio。 微博:http://weibo.com/314004856 邮箱：&#108;&#105;&#121;&#x75;&#110;&#x6c;&#x6f;&# &hellip;">
+	<meta name="description" content="新版Xcode 5和Server发布以后,apple对单元测试的支持是越来越好了.从这一点看出apple对单元测试的也是越来越重视了.
+这篇Blog就简单的介绍这集成化测试功能. Server更新后是要重新付费的,但如果你有开发者账号的话,可以登录AppleDeveloper 里面会有个兑换码. &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -106,19 +107,72 @@
 <div id="toload">
 <!-- begin toload --> 
     <div id="content" class="inner">
-        <article class="page">
-    
-    <h1 class="title">About</h1>
-    
-    <div class="entry-content"><p>从客户端iOS+cocos2d转到后端NodeJS+Pomelo</p>
+        <article class="post">
+	<h2 class="title">Xcode 5 下的单元测试</h2>
+	<div class="entry-content"><p>新版Xcode 5和Server发布以后,apple对单元测试的支持是越来越好了.从这一点看出apple对单元测试的也是越来越重视了.
+这篇Blog就简单的介绍这集成化测试功能.</p>
 
-<p>完整经历过德州扑克项目开发。</p>
+<p>Server更新后是要重新付费的,但如果你有开发者账号的话,可以登录<a href="https://developer.apple.com">AppleDeveloper</a> 里面会有个兑换码.如果没有就需要单付费了&hellip;</p>
 
-<p>目前就职于创业公司CandyStudio。</p>
+<h3>Server的变化</h3>
 
-<p>微博:<a href="http://weibo.com/314004856">http://weibo.com/314004856</a></p>
+<p>里面会出现个新的选项&mdash;Xcode
+<img src="/images/unittest/QQ20131105-12.png"></p>
 
-<p>邮箱：<a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#111;&#x3a;&#108;&#x69;&#121;&#117;&#110;&#108;&#x6f;&#x6e;&#x67;&#56;&#56;&#x30;&#x36;&#x30;&#x31;&#64;&#103;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#108;&#105;&#121;&#x75;&#110;&#x6c;&#x6f;&#x6e;&#x67;&#x38;&#x38;&#x30;&#x36;&#48;&#49;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;</a></p>
+<h3>从头开始</h3>
+
+<p>创建项目</p>
+
+<p><img src="/images/unittest/QQ20131105-1.png"></p>
+
+<p>创建远程测试服务</p>
+
+<p>Product->Create Bot</p>
+
+<p><img src="/images/unittest/QQ20131105-2.png"></p>
+
+<p>Configure Remotes</p>
+
+<p><img src="/images/unittest/QQ20131105-3.png"></p>
+
+<p>Add</p>
+
+<p><img src="/images/unittest/QQ20131105-4.png"></p>
+
+<p>Create New Remote</p>
+
+<p><img src="/images/unittest/QQ20131105-5.png"></p>
+
+<p>Create</p>
+
+<p><img src="/images/unittest/QQ20131105-6.png"></p>
+
+<p>Next</p>
+
+<p><img src="/images/unittest/QQ20131105-7.png"></p>
+
+<p>这里面有很多选项
+1. 选择执行条件,这里我们选择On Commit(只要Commit 就执行测试)</p>
+
+<p>选择Next</p>
+
+<p><img src="/images/unittest/QQ20131105-8.png"></p>
+
+<p>选择测试的设备</p>
+
+<p><img src="/images/unittest/QQ20131105-9.png"></p>
+
+<p>这是成功或失败后发邮件的内容</p>
+
+<p>选择Create Bot</p>
+
+<p><img src="/images/unittest/QQ20131105-10.png"></p>
+</div>
+
+<div class="meta">
+	
+		<span class="comments"><a href="/blog/2013/11/05/xcode-5-xia-de-dan-yuan-ce-shi/#disqus_thread">Comments</a></span>
+	
 </div>
 </article>
 
@@ -137,11 +191,10 @@
 
 
 <section id="comment">
-    <h1 class="title">Comments</h1>
+    <h2 class="title">Comments</h2>
     <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
 </section>
-
 
     </div>
     <footer id="footer">
@@ -169,8 +222,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://GeforceLee.github.io/about/index.html';
-        var disqus_url = 'http://GeforceLee.github.io/about/index.html';
+        var disqus_identifier = 'http://GeforceLee.github.io/blog/2013/11/05/xcode-5-xia-de-dan-yuan-ce-shi/';
+        var disqus_url = 'http://GeforceLee.github.io/blog/2013/11/05/xcode-5-xia-de-dan-yuan-ce-shi/';
         var disqus_script = 'embed.js';
       
     (function () {

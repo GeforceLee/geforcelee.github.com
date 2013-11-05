@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Xcode | GeforceLee's Blog]]></title>
+  <link href="http://GeforceLee.github.io/blog/categories/xcode/atom.xml" rel="self"/>
+  <link href="http://GeforceLee.github.io/"/>
+  <updated>2013-11-05T17:34:35+08:00</updated>
+  <id>http://GeforceLee.github.io/</id>
+  <author>
+    <name><![CDATA[GeforceLee]]></name>
+    <email><![CDATA[liyunlong880601@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Xcode 5 下的单元测试]]></title>
+    <link href="http://GeforceLee.github.io/blog/2013/11/05/xcode-5-xia-de-dan-yuan-ce-shi/"/>
+    <updated>2013-11-05T15:37:00+08:00</updated>
+    <id>http://GeforceLee.github.io/blog/2013/11/05/xcode-5-xia-de-dan-yuan-ce-shi</id>
+    <content type="html"><![CDATA[<p>新版Xcode 5和Server发布以后,apple对单元测试的支持是越来越好了.从这一点看出apple对单元测试的也是越来越重视了.
+这篇Blog就简单的介绍这集成化测试功能.</p>
+
+<p>Server更新后是要重新付费的,但如果你有开发者账号的话,可以登录<a href="https://developer.apple.com">AppleDeveloper</a> 里面会有个兑换码.如果没有就需要单付费了&hellip;</p>
+
+<h3>Server的变化</h3>
+
+<p>里面会出现个新的选项&mdash;Xcode
+{%img /images/unittest/QQ20131105-12.png %}</p>
+
+<h3>从头开始</h3>
+
+<p>创建项目</p>
+
+<p>{%img /images/unittest/QQ20131105-1.png %}</p>
+
+<p>创建远程测试服务</p>
+
+<p>Product->Create Bot</p>
+
+<p>{%img /images/unittest/QQ20131105-2.png %}</p>
+
+<p>Configure Remotes</p>
+
+<p>{%img /images/unittest/QQ20131105-3.png %}</p>
+
+<p>Add</p>
+
+<p>{%img /images/unittest/QQ20131105-4.png %}</p>
+
+<p>Create New Remote</p>
+
+<p>{%img /images/unittest/QQ20131105-5.png %}</p>
+
+<p>Create</p>
+
+<p>{%img /images/unittest/QQ20131105-6.png %}</p>
+
+<p>Next</p>
+
+<p>{%img /images/unittest/QQ20131105-7.png %}</p>
+
+<p>这里面有很多选项
+1. 选择执行条件,这里我们选择On Commit(只要Commit 就执行测试)</p>
+
+<p>选择Next</p>
+
+<p>{%img /images/unittest/QQ20131105-8.png %}</p>
+
+<p>选择测试的设备</p>
+
+<p>{%img /images/unittest/QQ20131105-9.png %}</p>
+
+<p>这是成功或失败后发邮件的内容</p>
+
+<p>选择Create Bot</p>
+
+<p>{%img /images/unittest/QQ20131105-10.png %}</p>
+]]></content>
+  </entry>
+  
+</feed>
