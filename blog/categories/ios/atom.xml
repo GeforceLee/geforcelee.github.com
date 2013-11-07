@@ -4,7 +4,7 @@
   <title><![CDATA[Category: iOS | GeforceLee's Blog]]></title>
   <link href="http://GeforceLee.github.io/blog/categories/ios/atom.xml" rel="self"/>
   <link href="http://GeforceLee.github.io/"/>
-  <updated>2013-11-05T17:50:36+08:00</updated>
+  <updated>2013-11-07T15:29:43+08:00</updated>
   <id>http://GeforceLee.github.io/</id>
   <author>
     <name><![CDATA[GeforceLee]]></name>
@@ -12,6 +12,94 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[iOS单元测试]]></title>
+    <link href="http://GeforceLee.github.io/blog/2013/11/07/iosdan-yuan-ce-shi/"/>
+    <updated>2013-11-07T14:03:00+08:00</updated>
+    <id>http://GeforceLee.github.io/blog/2013/11/07/iosdan-yuan-ce-shi</id>
+    <content type="html"><![CDATA[<p>之前写了一遍关于iOS5的集成测试的Blog&mdash;<a href="http://blog.liyunlong.org/blog/2013/11/05/xcode-5-xia-de-dan-yuan-ce-shi/">Xcode 5 下的单元测试</a></p>
+
+<p>在这篇Blog中我要介绍下Xcode5下新的单元测试框架<XCTest></p>
+
+<p>在一个新建的项目中会自动的创建相对应的单元测试Target.同时在对应的一个文件夹下会有一个以Tests为结尾的文件.</p>
+
+<p>我们看看这个文件的内容:</p>
+
+<pre><code>#import &lt;XCTest/XCTest.h&gt;
+
+@interface UnitTestTests : XCTestCase (1)
+
+(2)
+
+@end
+
+@implementation UnitTestTests
+
+- (void)setUp (3)
+{
+    [super setUp];
+    // Put setup code here. This method is called before the invocation of each test            method in the class.
+}
+
+- (void)tearDown (4)
+{
+    // Put teardown code here. This method is called after the invocation of each test  method in the class.
+    [super tearDown];
+}
+
+- (void)testExample (5)
+{
+    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);(6)
+}
+</code></pre>
+
+<!-- more -->
+
+
+<p>下面解释下上面代码的含义</p>
+
+<ul>
+<li>(1)定义测试类的名字,继承自XCTestCase</li>
+<li>(2)可以在interfce中定义变量</li>
+<li>(3)setUp()这是在单元测试执行前运行的代码(可以简单的理解成init方法,只为了理解)在这可以初始化定义的变量,方便在测试方法调用</li>
+<li>(4)tearDown()这是在单元测试结束后调用的方法(可以简单的理解成dealloc方法)</li>
+<li>(5)testExample()这就是真正写单元测试的方法了.注意:一定是以"test"开始命名函数的方法,当执行测试的时候,这就是要测试的方法.</li>
+<li>(6)这就是XCTest框架为我们提供的宏.这个红的意思就是测试失败.当command+U 的时候就会报错.</li>
+</ul>
+
+
+<h4>简单的例子:</h4>
+
+<pre><code>- (NSNumber *)makeNumberWhitInt:(int)theInt{
+    return [NSNumber numberWithInt:theInt];
+}
+
+- (NSNumber *)plusANumber:(NSNumber *)a andBNumber:(NSNumber *)b{
+    return [NSNumber numberWithInt:[a intValue] + [b intValue]];
+}
+
+测试方法
+- (void)testMakeNumberMethod{
+
+    NSNumber *one = [self makeNumberWhitInt:1];
+    XCTAssertNotNil(one, @"makeNumberWhitInt方法不能返回Null");
+    NSNumber *tow = [self makeNumberWhitInt:2];
+    XCTAssertNotNil(tow, @"makeNumberWhitInt方法不能返回Null");
+    NSNumber *three = [NSNumber numberWithInt:3];
+    NSNumber *result = [self plusANumber:one andBNumber:tow];
+    XCTAssertEqual(three, result, @"1+2=3");
+}
+</code></pre>
+
+<p>还有很多的宏就不一一说明了.可以看看XCTest框架中看到.</p>
+
+<h3>总结</h3>
+
+<p>结合单元测试和新的集成测试我们能更好的保证我们程序的稳定性.
+单元测试的方法很简单,但真正运用好却需要很多的经验,在这里我推荐一本&lt;测试驱动的iOS开发>.这本书很好的介绍了测试驱动这个模式.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Xcode 5 下的单元测试]]></title>
@@ -26,7 +114,7 @@
 <h3>Server的变化</h3>
 
 <p>里面会出现个新的选项&mdash;Xcode
-<img src="/images/unittest/QQ20131105-12.png"></p>
+{%img /images/unittest/QQ20131105-12.png %}</p>
 
 <!-- more -->
 
@@ -35,56 +123,56 @@
 
 <p>创建项目</p>
 
-<p><img src="/images/unittest/QQ20131105-1.png"></p>
+<p>{%img /images/unittest/QQ20131105-1.png %}</p>
 
 <p>创建远程测试服务</p>
 
 <p>Product->Create Bot</p>
 
-<p><img src="/images/unittest/QQ20131105-2.png"></p>
+<p>{%img /images/unittest/QQ20131105-2.png %}</p>
 
 <p>Configure Remotes</p>
 
-<p><img src="/images/unittest/QQ20131105-3.png"></p>
+<p>{%img /images/unittest/QQ20131105-3.png %}</p>
 
 <p>Add</p>
 
-<p><img src="/images/unittest/QQ20131105-4.png"></p>
+<p>{%img /images/unittest/QQ20131105-4.png %}</p>
 
 <p>Create New Remote</p>
 
-<p><img src="/images/unittest/QQ20131105-5.png"></p>
+<p>{%img /images/unittest/QQ20131105-5.png %}</p>
 
 <p>Create</p>
 
-<p><img src="/images/unittest/QQ20131105-6.png"></p>
+<p>{%img /images/unittest/QQ20131105-6.png %}</p>
 
 <p>Next</p>
 
-<p><img src="/images/unittest/QQ20131105-7.png"></p>
+<p>{%img /images/unittest/QQ20131105-7.png %}</p>
 
 <p>这里面有很多选项
 1. 选择执行条件,这里我们选择On Commit(只要Commit 就执行测试)</p>
 
 <p>选择Next</p>
 
-<p><img src="/images/unittest/QQ20131105-8.png"></p>
+<p>{%img /images/unittest/QQ20131105-8.png %}</p>
 
 <p>选择测试的设备</p>
 
-<p><img src="/images/unittest/QQ20131105-9.png"></p>
+<p>{%img /images/unittest/QQ20131105-9.png %}</p>
 
 <p>这是成功或失败后发邮件的内容</p>
 
 <p>选择Create Bot</p>
 
-<p><img src="/images/unittest/QQ20131105-10.png"></p>
+<p>{%img /images/unittest/QQ20131105-10.png %}</p>
 
 <p>然后就可以上传对应代码.这里用的是Git</p>
 
 <p>上传后Xcode中显示</p>
 
-<p><img src="/images/unittest/QQ20131105-11.png"></p>
+<p>{%img /images/unittest/QQ20131105-11.png %}</p>
 
 <p>以上就是Xcode5和新版Server自带的测试工具.</p>
 
@@ -110,21 +198,21 @@
 
 <p>首先打开<code>要是串访问</code></p>
 
-<p><img src="/images/nodeapn/130713_1.png"></p>
+<p>{%img /images/nodeapn/130713_1.png %}</p>
 
 <p>选择<code>要是串访问</code>&ndash;><code>证书助理</code>&ndash;><code>从证书颁发机构请求证书</code>
-<img src="/images/nodeapn/130713_2.png"></p>
+{%img /images/nodeapn/130713_2.png %}</p>
 
 <p>填写邮件和'常用名称'   这个'常用名称'随便填
 之后就一直下一步,直到完成   桌面上会出现一个<code>CertificateSigningRequest.certSigningRequest</code> 文件</p>
 
 <p>完成后在<code>秘钥</code>中会有你刚才生成的秘钥</p>
 
-<p><img src="/images/nodeapn/130713_3.png"></p>
+<p>{%img /images/nodeapn/130713_3.png %}</p>
 
 <p>点击右键 选择 <code>导出</code></p>
 
-<p><img src="/images/nodeapn/130713_4.png"></p>
+<p>{%img /images/nodeapn/130713_4.png %}</p>
 
 <p>保存到桌面</p>
 
@@ -132,24 +220,24 @@
 
 <p>选择<code>Certificates, Identifiers &amp; Profiles</code></p>
 
-<p><img src="/images/nodeapn/130713_5.png"></p>
+<p>{%img /images/nodeapn/130713_5.png %}</p>
 
-<p><img src="/images/nodeapn/130713_6.png"></p>
+<p>{%img /images/nodeapn/130713_6.png %}</p>
 
 <p>创建一个AppleId 记得把通知选项打开</p>
 
-<p><img src="/images/nodeapn/130713_11.png"></p>
+<p>{%img /images/nodeapn/130713_11.png %}</p>
 
-<p><img src="/images/nodeapn/130713_12.png"></p>
+<p>{%img /images/nodeapn/130713_12.png %}</p>
 
 <p>选择在桌面<code>CertificateSigningRequest.certSigningRequest</code> 上传</p>
 
 <p>生成后选择下载'aps_development.cer'到桌面</p>
 
 <p>然后用新的AppleId 创建个证书
-<img src="/images/nodeapn/130713_8.png">
-<img src="/images/nodeapn/130713_9.png">
-<img src="/images/nodeapn/130713_10.png"></p>
+{%img /images/nodeapn/130713_8.png %}
+{%img /images/nodeapn/130713_9.png %}
+{%img /images/nodeapn/130713_10.png %}</p>
 
 <p>接下来就是要在终端里输入命令了</p>
 
@@ -158,7 +246,7 @@
 openssl pkcs12 -in PushTest.p12 -out key.pem -nodes
 </code></pre>
 
-<p><img src="/images/nodeapn/130713_13.png"></p>
+<p>{%img /images/nodeapn/130713_13.png %}</p>
 
 <p>生成好的这2个文件放到对应服务端代码所在的目录里</p>
 
@@ -195,7 +283,7 @@ apnsConnection.sendNotification(note);
 
 <p>客户端:</p>
 
-<p><img src="/images/nodeapn/130713_14.png"></p>
+<p>{%img /images/nodeapn/130713_14.png %}</p>
 
 <p>选好新的证书</p>
 

@@ -4,7 +4,7 @@
   <title><![CDATA[GeforceLee's Blog]]></title>
   <link href="http://GeforceLee.github.io/atom.xml" rel="self"/>
   <link href="http://GeforceLee.github.io/"/>
-  <updated>2013-11-05T17:50:36+08:00</updated>
+  <updated>2013-11-07T15:29:42+08:00</updated>
   <id>http://GeforceLee.github.io/</id>
   <author>
     <name><![CDATA[GeforceLee]]></name>
@@ -12,6 +12,94 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[iOS单元测试]]></title>
+    <link href="http://GeforceLee.github.io/blog/2013/11/07/iosdan-yuan-ce-shi/"/>
+    <updated>2013-11-07T14:03:00+08:00</updated>
+    <id>http://GeforceLee.github.io/blog/2013/11/07/iosdan-yuan-ce-shi</id>
+    <content type="html"><![CDATA[<p>之前写了一遍关于iOS5的集成测试的Blog&mdash;<a href="http://blog.liyunlong.org/blog/2013/11/05/xcode-5-xia-de-dan-yuan-ce-shi/">Xcode 5 下的单元测试</a></p>
+
+<p>在这篇Blog中我要介绍下Xcode5下新的单元测试框架<XCTest></p>
+
+<p>在一个新建的项目中会自动的创建相对应的单元测试Target.同时在对应的一个文件夹下会有一个以Tests为结尾的文件.</p>
+
+<p>我们看看这个文件的内容:</p>
+
+<pre><code>#import &lt;XCTest/XCTest.h&gt;
+
+@interface UnitTestTests : XCTestCase (1)
+
+(2)
+
+@end
+
+@implementation UnitTestTests
+
+- (void)setUp (3)
+{
+    [super setUp];
+    // Put setup code here. This method is called before the invocation of each test            method in the class.
+}
+
+- (void)tearDown (4)
+{
+    // Put teardown code here. This method is called after the invocation of each test  method in the class.
+    [super tearDown];
+}
+
+- (void)testExample (5)
+{
+    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);(6)
+}
+</code></pre>
+
+<!-- more -->
+
+
+<p>下面解释下上面代码的含义</p>
+
+<ul>
+<li>(1)定义测试类的名字,继承自XCTestCase</li>
+<li>(2)可以在interfce中定义变量</li>
+<li>(3)setUp()这是在单元测试执行前运行的代码(可以简单的理解成init方法,只为了理解)在这可以初始化定义的变量,方便在测试方法调用</li>
+<li>(4)tearDown()这是在单元测试结束后调用的方法(可以简单的理解成dealloc方法)</li>
+<li>(5)testExample()这就是真正写单元测试的方法了.注意:一定是以&#8221;test&#8221;开始命名函数的方法,当执行测试的时候,这就是要测试的方法.</li>
+<li>(6)这就是XCTest框架为我们提供的宏.这个红的意思就是测试失败.当command+U 的时候就会报错.</li>
+</ul>
+
+
+<h4>简单的例子:</h4>
+
+<pre><code>- (NSNumber *)makeNumberWhitInt:(int)theInt{
+    return [NSNumber numberWithInt:theInt];
+}
+
+- (NSNumber *)plusANumber:(NSNumber *)a andBNumber:(NSNumber *)b{
+    return [NSNumber numberWithInt:[a intValue] + [b intValue]];
+}
+
+测试方法
+- (void)testMakeNumberMethod{
+
+    NSNumber *one = [self makeNumberWhitInt:1];
+    XCTAssertNotNil(one, @"makeNumberWhitInt方法不能返回Null");
+    NSNumber *tow = [self makeNumberWhitInt:2];
+    XCTAssertNotNil(tow, @"makeNumberWhitInt方法不能返回Null");
+    NSNumber *three = [NSNumber numberWithInt:3];
+    NSNumber *result = [self plusANumber:one andBNumber:tow];
+    XCTAssertEqual(three, result, @"1+2=3");
+}
+</code></pre>
+
+<p>还有很多的宏就不一一说明了.可以看看XCTest框架中看到.</p>
+
+<h3>总结</h3>
+
+<p>结合单元测试和新的集成测试我们能更好的保证我们程序的稳定性.
+单元测试的方法很简单,但真正运用好却需要很多的经验,在这里我推荐一本&lt;测试驱动的iOS开发>.这本书很好的介绍了测试驱动这个模式.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Xcode 5 下的单元测试]]></title>

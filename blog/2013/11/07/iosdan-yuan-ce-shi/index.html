@@ -3,10 +3,10 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>about - GeforceLee's Blog</title>
+	<title>iOS单元测试 - GeforceLee's Blog</title>
     <meta name="author" content="GeforceLee">
     
-	<meta name="description" content="从客户端iOS+cocos2d转到后端NodeJS+Pomelo 完整经历过德州扑克项目开发。 目前就职于创业公司CandyStudio。 微博:http://weibo.com/314004856 邮箱：&#x6c;&#x69;&#121;&#117;&#110;&#108;&#x6f;&# &hellip;">
+	<meta name="description" content="之前写了一遍关于iOS5的集成测试的Blog&mdash;Xcode 5 下的单元测试 在这篇Blog中我要介绍下Xcode5下新的单元测试框架 在一个新建的项目中会自动的创建相对应的单元测试Target.同时在对应的一个文件夹下会有一个以Tests为结尾的文件. 我们看看这个文件的内容: # &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -106,19 +106,94 @@
 <div id="toload">
 <!-- begin toload --> 
     <div id="content" class="inner">
-        <article class="page">
-    
-    <h1 class="title">About</h1>
-    
-    <div class="entry-content"><p>从客户端iOS+cocos2d转到后端NodeJS+Pomelo</p>
+        <article class="post">
+	<h2 class="title">iOS单元测试</h2>
+	<div class="entry-content"><p>之前写了一遍关于iOS5的集成测试的Blog&mdash;<a href="http://blog.liyunlong.org/blog/2013/11/05/xcode-5-xia-de-dan-yuan-ce-shi/">Xcode 5 下的单元测试</a></p>
 
-<p>完整经历过德州扑克项目开发。</p>
+<p>在这篇Blog中我要介绍下Xcode5下新的单元测试框架<XCTest></p>
 
-<p>目前就职于创业公司CandyStudio。</p>
+<p>在一个新建的项目中会自动的创建相对应的单元测试Target.同时在对应的一个文件夹下会有一个以Tests为结尾的文件.</p>
 
-<p>微博:<a href="http://weibo.com/314004856">http://weibo.com/314004856</a></p>
+<p>我们看看这个文件的内容:</p>
 
-<p>邮箱：<a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#x6c;&#x69;&#121;&#x75;&#x6e;&#x6c;&#111;&#x6e;&#x67;&#56;&#x38;&#x30;&#x36;&#48;&#49;&#x40;&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#111;&#x6d;">&#x6c;&#x69;&#121;&#117;&#110;&#108;&#x6f;&#x6e;&#103;&#56;&#x38;&#x30;&#x36;&#48;&#49;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></p>
+<pre><code>#import &lt;XCTest/XCTest.h&gt;
+
+@interface UnitTestTests : XCTestCase (1)
+
+(2)
+
+@end
+
+@implementation UnitTestTests
+
+- (void)setUp (3)
+{
+    [super setUp];
+    // Put setup code here. This method is called before the invocation of each test            method in the class.
+}
+
+- (void)tearDown (4)
+{
+    // Put teardown code here. This method is called after the invocation of each test  method in the class.
+    [super tearDown];
+}
+
+- (void)testExample (5)
+{
+    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);(6)
+}
+</code></pre>
+
+<!-- more -->
+
+
+<p>下面解释下上面代码的含义</p>
+
+<ul>
+<li>(1)定义测试类的名字,继承自XCTestCase</li>
+<li>(2)可以在interfce中定义变量</li>
+<li>(3)setUp()这是在单元测试执行前运行的代码(可以简单的理解成init方法,只为了理解)在这可以初始化定义的变量,方便在测试方法调用</li>
+<li>(4)tearDown()这是在单元测试结束后调用的方法(可以简单的理解成dealloc方法)</li>
+<li>(5)testExample()这就是真正写单元测试的方法了.注意:一定是以&#8221;test&#8221;开始命名函数的方法,当执行测试的时候,这就是要测试的方法.</li>
+<li>(6)这就是XCTest框架为我们提供的宏.这个红的意思就是测试失败.当command+U 的时候就会报错.</li>
+</ul>
+
+
+<h4>简单的例子:</h4>
+
+<pre><code>- (NSNumber *)makeNumberWhitInt:(int)theInt{
+    return [NSNumber numberWithInt:theInt];
+}
+
+- (NSNumber *)plusANumber:(NSNumber *)a andBNumber:(NSNumber *)b{
+    return [NSNumber numberWithInt:[a intValue] + [b intValue]];
+}
+
+测试方法
+- (void)testMakeNumberMethod{
+
+    NSNumber *one = [self makeNumberWhitInt:1];
+    XCTAssertNotNil(one, @"makeNumberWhitInt方法不能返回Null");
+    NSNumber *tow = [self makeNumberWhitInt:2];
+    XCTAssertNotNil(tow, @"makeNumberWhitInt方法不能返回Null");
+    NSNumber *three = [NSNumber numberWithInt:3];
+    NSNumber *result = [self plusANumber:one andBNumber:tow];
+    XCTAssertEqual(three, result, @"1+2=3");
+}
+</code></pre>
+
+<p>还有很多的宏就不一一说明了.可以看看XCTest框架中看到.</p>
+
+<h3>总结</h3>
+
+<p>结合单元测试和新的集成测试我们能更好的保证我们程序的稳定性.
+单元测试的方法很简单,但真正运用好却需要很多的经验,在这里我推荐一本&lt;测试驱动的iOS开发>.这本书很好的介绍了测试驱动这个模式.</p>
+</div>
+
+<div class="meta">
+	
+		<span class="comments"><a href="/blog/2013/11/07/iosdan-yuan-ce-shi/#disqus_thread">Comments</a></span>
+	
 </div>
 </article>
 
@@ -137,11 +212,10 @@
 
 
 <section id="comment">
-    <h1 class="title">Comments</h1>
+    <h2 class="title">Comments</h2>
     <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
 </section>
-
 
     </div>
     <footer id="footer">
@@ -169,8 +243,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://GeforceLee.github.io/about/index.html';
-        var disqus_url = 'http://GeforceLee.github.io/about/index.html';
+        var disqus_identifier = 'http://GeforceLee.github.io/blog/2013/11/07/iosdan-yuan-ce-shi/';
+        var disqus_url = 'http://GeforceLee.github.io/blog/2013/11/07/iosdan-yuan-ce-shi/';
         var disqus_script = 'embed.js';
       
     (function () {
