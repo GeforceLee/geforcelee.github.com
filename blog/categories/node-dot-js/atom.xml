@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Node.js | GeforceLee's Blog]]></title>
   <link href="http://GeforceLee.github.io/blog/categories/node-dot-js/atom.xml" rel="self"/>
   <link href="http://GeforceLee.github.io/"/>
-  <updated>2013-11-08T11:53:43+08:00</updated>
+  <updated>2013-11-08T15:00:17+08:00</updated>
   <id>http://GeforceLee.github.io/</id>
   <author>
     <name><![CDATA[GeforceLee]]></name>
@@ -29,21 +29,21 @@
 
 <p>首先打开<code>要是串访问</code></p>
 
-<p>{%img /images/nodeapn/130713_1.png %}</p>
+<p><img src="/images/nodeapn/130713_1.png"></p>
 
 <p>选择<code>要是串访问</code>&ndash;><code>证书助理</code>&ndash;><code>从证书颁发机构请求证书</code>
-{%img /images/nodeapn/130713_2.png %}</p>
+<img src="/images/nodeapn/130713_2.png"></p>
 
 <p>填写邮件和'常用名称'   这个'常用名称'随便填
 之后就一直下一步,直到完成   桌面上会出现一个<code>CertificateSigningRequest.certSigningRequest</code> 文件</p>
 
 <p>完成后在<code>秘钥</code>中会有你刚才生成的秘钥</p>
 
-<p>{%img /images/nodeapn/130713_3.png %}</p>
+<p><img src="/images/nodeapn/130713_3.png"></p>
 
 <p>点击右键 选择 <code>导出</code></p>
 
-<p>{%img /images/nodeapn/130713_4.png %}</p>
+<p><img src="/images/nodeapn/130713_4.png"></p>
 
 <p>保存到桌面</p>
 
@@ -51,24 +51,24 @@
 
 <p>选择<code>Certificates, Identifiers &amp; Profiles</code></p>
 
-<p>{%img /images/nodeapn/130713_5.png %}</p>
+<p><img src="/images/nodeapn/130713_5.png"></p>
 
-<p>{%img /images/nodeapn/130713_6.png %}</p>
+<p><img src="/images/nodeapn/130713_6.png"></p>
 
 <p>创建一个AppleId 记得把通知选项打开</p>
 
-<p>{%img /images/nodeapn/130713_11.png %}</p>
+<p><img src="/images/nodeapn/130713_11.png"></p>
 
-<p>{%img /images/nodeapn/130713_12.png %}</p>
+<p><img src="/images/nodeapn/130713_12.png"></p>
 
 <p>选择在桌面<code>CertificateSigningRequest.certSigningRequest</code> 上传</p>
 
 <p>生成后选择下载'aps_development.cer'到桌面</p>
 
 <p>然后用新的AppleId 创建个证书
-{%img /images/nodeapn/130713_8.png %}
-{%img /images/nodeapn/130713_9.png %}
-{%img /images/nodeapn/130713_10.png %}</p>
+<img src="/images/nodeapn/130713_8.png">
+<img src="/images/nodeapn/130713_9.png">
+<img src="/images/nodeapn/130713_10.png"></p>
 
 <p>接下来就是要在终端里输入命令了</p>
 
@@ -77,7 +77,7 @@
 openssl pkcs12 -in PushTest.p12 -out key.pem -nodes
 </code></pre>
 
-<p>{%img /images/nodeapn/130713_13.png %}</p>
+<p><img src="/images/nodeapn/130713_13.png"></p>
 
 <p>生成好的这2个文件放到对应服务端代码所在的目录里</p>
 
@@ -114,7 +114,7 @@ apnsConnection.sendNotification(note);
 
 <p>客户端:</p>
 
-<p>{%img /images/nodeapn/130713_14.png %}</p>
+<p><img src="/images/nodeapn/130713_14.png"></p>
 
 <p>选好新的证书</p>
 
