@@ -156,6 +156,9 @@ target.logElementTree();
 <p>一个TextFiled一个label的view.
 在文本框中输入文字,然后点Return键,然后Label中在现实文本框中的文字.</p>
 
+<p>在xib中可以设置这些属性
+<img src="/images/UIAutomation/5.png"></p>
+
 <pre><code>在xcode中的代码段:
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     NSString *str = textField.text;
@@ -165,7 +168,9 @@ target.logElementTree();
     return YES;
 }
 
+
 在脚本中写的:
+
 var testName = "Test 1";
 
 var target = UIATarget.localTarget();
