@@ -6,7 +6,7 @@
 	<title>GeforceLee's Blog</title>
     <meta name="author" content="GeforceLee">
     
-	<meta name="description" content=" Published on: May 3rd, 2013 Tags: Redis 介绍 近些年来，关于查询存储数据发展到难以相信的地步。关系型数据库并不是到哪都好使的了，或者说现在的数据的生态系统并不是很相同。 阅读全文&rarr; Comments ">
+	<meta name="description" content="Published on: May 3rd, 2013 Tags: Redis 第一章 基础 是什么让Redis变得特殊？他解决了什么样的问题？开发者需要注意些什么？在我回答这些问题之前，我们需要理解什么是Redis。 Redis通常被描述成内存中key-value的数据库。 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -107,6 +107,61 @@
 <!-- begin toload --> 
     <div id="content" class="inner">
         
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/05/03/Redis-Tutorials-2/">
+		
+			Redis系列教程2</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-03T00:00:00+08:00" pubdate data-updated="true">May 3<span>rd</span>, 2013</time></div>
+      <div class="tags">Tags: 
+
+
+	<a class='category' href='/blog/categories/redis/'>Redis</a>
+
+
+</div>
+    </div>
+		<h1>第一章  基础</h1>
+
+<p>是什么让Redis变得特殊？他解决了什么样的问题？开发者需要注意些什么？在我回答这些问题之前，我们需要理解什么是Redis。</p>
+
+<p>Redis通常被描述成内存中key-value的数据库。我认为那是一个不准确的描述。Redis把所有数据放到内存中（大部分以字节形式），并且把数据持久化在磁盘上，这比简单的key-value存储多多了。你不要站在这错误的观点上，否则你对Redis的观点和解决问题都是狭隘的。</p>
+
+<p>事实上Redis暴露出5个不同的数据结构,其中之一是key-value的结构。了解这5个数据结构，他们怎么工作的，他们有什么样的方法，你能怎么用这些建立你们的模型才是关键。首先咱们先了解下数据结构。</p>
+
+<p>如果我们使用一种数据结构来描述关系世界，我们大概会说数据库中的一个结构&mdash;table。Tables复杂并且比较灵活，没有什么你不能模拟，存储，操作的。然而他也有一些本质上的缺点。特别是，不是所有的都是简单或者快速的。如果想要一个结构适用所有的结果，我们是不是要使用一个专门的结构呢？有一些事情我们不能做至少到现在我们做的不好，但是我们要增加简单性和效率。</p>
+
+<p>用特殊的数据结构对待专门的问题？我们应该怎么code？你不能在每块数据用hashtable，也不能用标量变量。对于我，那就是定义Redis的途径。如果你正在处理标量，链表，哈希表，集合，为什么不把他存成标量，链表，哈希表，结合？为什么我们检查一个是否存在那么复杂的去调一个 exists（key），他的时间复杂度远大于O(1）</p>
+
+
+		
+		<a href="/blog/2013/05/03/Redis-Tutorials-2/" class="more-link">阅读全文&rarr;</a>
+	</div>
+
+<div class="meta">
+	
+		<span class="comments"><a href="/blog/2013/05/03/Redis-Tutorials-2//blog/page/2/index.html#disqus_thread">Comments</a></span>
+	
+</div>
+</article>
 
 
     <article class="post">

@@ -6,7 +6,7 @@
 	<title>GeforceLee's Blog</title>
     <meta name="author" content="GeforceLee">
     
-	<meta name="description" content="Published on: Nov 7th, 2013 Tags: UintTest, iOS 之前写了一遍关于iOS5的集成测试的Blog&mdash;Xcode 5 下的单元测试 在这篇Blog中我要介绍下Xcode5下新的单元测试框架 &hellip;">
+	<meta name="description" content="Published on: Nov 8th, 2013 Tags: UIAutomation, iOS 前言 经过近半年的创业经历,我们的团队在开发上发现了很多问题,也发现了很多重复的工作量,浪费了很多时间.所以我们开始了客户端测试的研究,这篇Blog是讲述UI自动化测试的简单记录. &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -107,6 +107,88 @@
 <!-- begin toload --> 
     <div id="content" class="inner">
         
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/11/08/ios-uizi-dong-hua-ce-shi/">
+		
+			iOS UI自动化测试</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-08T11:10:00+08:00" pubdate data-updated="true">Nov 8<span>th</span>, 2013</time></div>
+      <div class="tags">Tags: 
+
+
+	<a class='category' href='/blog/categories/uiautomation/'>UIAutomation</a>, <a class='category' href='/blog/categories/ios/'>iOS</a>
+
+
+</div>
+    </div>
+		<h3>前言</h3>
+
+<p>经过近半年的创业经历,我们的团队在开发上发现了很多问题,也发现了很多重复的工作量,浪费了很多时间.所以我们开始了客户端测试的研究,这篇Blog是讲述UI自动化测试的简单记录.</p>
+
+<p>不得不说Aplle在测试方面做了很多事情,Instruments这个工具非常强大.但之前我们也没有很好的利用,近期我们主要目标就是研究Instruments.</p>
+
+<p>说了不少废话,现在来干货吧!</p>
+
+<h3>第一个脚本</h3>
+
+<p>先说一个Bug,当在Xcode直接用command+I命令直接启动Instruments,机器会很卡,然后执行起脚本也会出现各种问题.
+所以就直接先把App按到对应的模拟器或真机上,然后再Instruments上选择target.这样运行起来会比较快(稍后会介绍更快的)
+选择Automation,开始第一个脚本吧.</p>
+
+<p><img src="/images/UIAutomation/1.png"></p>
+
+<p><img src="/images/UIAutomation/2.png"></p>
+
+<p>这就是第一个脚本,里面可以用JS 写很多测试方法.</p>
+
+<p><img src="/images/UIAutomation/3.png"></p>
+
+<ul>
+<li>点击Run的按钮就会执行脚本,</li>
+<li>点击记录按钮就会自动的记录在app上的操作.</li>
+</ul>
+
+
+<p>这里有几个帮助的方法:</p>
+
+<pre><code>var target = UIATarget.localTarget();
+target.logElementTree();
+</code></pre>
+
+<p>这个方法在运行的时候会打印出当前屏幕上所有的元素,这样可以让我们写脚本更简单.</p>
+
+<p><img src="/images/UIAutomation/4.png"></p>
+
+<p>脚本该怎么写就不在文中提了,想看的话可以到<a href="https://developer.apple.com/library/ios/documentation/DeveloperTools/Reference/UIAutomationRef/_index.html">脚本文档</a>来看</p>
+
+		
+		
+	</div>
+
+<div class="meta">
+	
+		<span class="comments"><a href="/blog/2013/11/08/ios-uizi-dong-hua-ce-shi//index.html#disqus_thread">Comments</a></span>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -594,61 +676,6 @@
 <div class="meta">
 	
 		<span class="comments"><a href="/blog/2013/05/04/Redis-Tutorials-3//index.html#disqus_thread">Comments</a></span>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/05/03/Redis-Tutorials-2/">
-		
-			Redis系列教程2</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-03T00:00:00+08:00" pubdate data-updated="true">May 3<span>rd</span>, 2013</time></div>
-      <div class="tags">Tags: 
-
-
-	<a class='category' href='/blog/categories/redis/'>Redis</a>
-
-
-</div>
-    </div>
-		<h1>第一章  基础</h1>
-
-<p>是什么让Redis变得特殊？他解决了什么样的问题？开发者需要注意些什么？在我回答这些问题之前，我们需要理解什么是Redis。</p>
-
-<p>Redis通常被描述成内存中key-value的数据库。我认为那是一个不准确的描述。Redis把所有数据放到内存中（大部分以字节形式），并且把数据持久化在磁盘上，这比简单的key-value存储多多了。你不要站在这错误的观点上，否则你对Redis的观点和解决问题都是狭隘的。</p>
-
-<p>事实上Redis暴露出5个不同的数据结构,其中之一是key-value的结构。了解这5个数据结构，他们怎么工作的，他们有什么样的方法，你能怎么用这些建立你们的模型才是关键。首先咱们先了解下数据结构。</p>
-
-<p>如果我们使用一种数据结构来描述关系世界，我们大概会说数据库中的一个结构&mdash;table。Tables复杂并且比较灵活，没有什么你不能模拟，存储，操作的。然而他也有一些本质上的缺点。特别是，不是所有的都是简单或者快速的。如果想要一个结构适用所有的结果，我们是不是要使用一个专门的结构呢？有一些事情我们不能做至少到现在我们做的不好，但是我们要增加简单性和效率。</p>
-
-<p>用特殊的数据结构对待专门的问题？我们应该怎么code？你不能在每块数据用hashtable，也不能用标量变量。对于我，那就是定义Redis的途径。如果你正在处理标量，链表，哈希表，集合，为什么不把他存成标量，链表，哈希表，结合？为什么我们检查一个是否存在那么复杂的去调一个 exists（key），他的时间复杂度远大于O(1）</p>
-
-
-		
-		<a href="/blog/2013/05/03/Redis-Tutorials-2/" class="more-link">阅读全文&rarr;</a>
-	</div>
-
-<div class="meta">
-	
-		<span class="comments"><a href="/blog/2013/05/03/Redis-Tutorials-2//index.html#disqus_thread">Comments</a></span>
 	
 </div>
 </article>

@@ -3,10 +3,10 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Category: iOS - GeforceLee's Blog</title>
+	<title>iOS UI自动化测试 - GeforceLee's Blog</title>
     <meta name="author" content="GeforceLee">
     
-	<meta name="description" content="Category: iOS">
+	<meta name="description" content="前言 经过近半年的创业经历,我们的团队在开发上发现了很多问题,也发现了很多重复的工作量,浪费了很多时间.所以我们开始了客户端测试的研究,这篇Blog是讲述UI自动化测试的简单记录. 不得不说Aplle在测试方面做了很多事情,Instruments这个工具非常强大.但之前我们也没有很好的利用, &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -106,116 +106,75 @@
 <div id="toload">
 <!-- begin toload --> 
     <div id="content" class="inner">
-        
+        <article class="post">
+	<h2 class="title">iOS UI自动化测试</h2>
+	<div class="entry-content"><h3>前言</h3>
+
+<p>经过近半年的创业经历,我们的团队在开发上发现了很多问题,也发现了很多重复的工作量,浪费了很多时间.所以我们开始了客户端测试的研究,这篇Blog是讲述UI自动化测试的简单记录.</p>
+
+<p>不得不说Aplle在测试方面做了很多事情,Instruments这个工具非常强大.但之前我们也没有很好的利用,近期我们主要目标就是研究Instruments.</p>
+
+<p>说了不少废话,现在来干货吧!</p>
+
+<h3>第一个脚本</h3>
+
+<p>先说一个Bug,当在Xcode直接用command+I命令直接启动Instruments,机器会很卡,然后执行起脚本也会出现各种问题.
+所以就直接先把App按到对应的模拟器或真机上,然后再Instruments上选择target.这样运行起来会比较快(稍后会介绍更快的)
+选择Automation,开始第一个脚本吧.</p>
+
+<p><img src="/images/UIAutomation/1.png"></p>
+
+<p><img src="/images/UIAutomation/2.png"></p>
+
+<p>这就是第一个脚本,里面可以用JS 写很多测试方法.</p>
+
+<p><img src="/images/UIAutomation/3.png"></p>
+
+<ul>
+<li>点击Run的按钮就会执行脚本,</li>
+<li>点击记录按钮就会自动的记录在app上的操作.</li>
+</ul>
+
+
+<p>这里有几个帮助的方法:</p>
+
+<pre><code>var target = UIATarget.localTarget();
+target.logElementTree();
+</code></pre>
+
+<p>这个方法在运行的时候会打印出当前屏幕上所有的元素,这样可以让我们写脚本更简单.</p>
+
+<p><img src="/images/UIAutomation/4.png"></p>
+
+<p>脚本该怎么写就不在文中提了,想看的话可以到<a href="https://developer.apple.com/library/ios/documentation/DeveloperTools/Reference/UIAutomationRef/_index.html">脚本文档</a>来看</p>
+</div>
+
+<div class="meta">
 	
-
-
+		<span class="comments"><a href="/blog/2013/11/08/ios-uizi-dong-hua-ce-shi/#disqus_thread">Comments</a></span>
 	
-	
-	<section class="archives"><h1 class="year">2013</h1>
-
-<article>
-  <h2 class="title"><a href="/blog/2013/11/08/ios-uizi-dong-hua-ce-shi/">iOS UI自动化测试</a></h2>
-	<div class="meta">
-		<span class="date">Nov  8</span>
-		<span class="tags">
-
-
-	<a class='category' href='/blog/categories/uiautomation/'>UIAutomation</a>, <a class='category' href='/blog/categories/ios/'>iOS</a>
-
-
-</span>
-	    
-	    <span class="comments"><a href="/blog/2013/11/08/ios-uizi-dong-hua-ce-shi/#disqus_thread">Comments</a></span>
-	    
-	</div>
+</div>
 </article>
 
-
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
 	
-
-
-<article>
-  <h2 class="title"><a href="/blog/2013/11/07/iosdan-yuan-ce-shi/">iOS单元测试</a></h2>
-	<div class="meta">
-		<span class="date">Nov  7</span>
-		<span class="tags">
-
-
-	<a class='category' href='/blog/categories/uinttest/'>UintTest</a>, <a class='category' href='/blog/categories/ios/'>iOS</a>
-
-
-</span>
-	    
-	    <span class="comments"><a href="/blog/2013/11/07/iosdan-yuan-ce-shi/#disqus_thread">Comments</a></span>
-	    
-	</div>
-</article>
-
-
 	
-
-
-<article>
-  <h2 class="title"><a href="/blog/2013/11/05/xcode-5-xia-de-dan-yuan-ce-shi/">Xcode 5 下的单元测试</a></h2>
-	<div class="meta">
-		<span class="date">Nov  5</span>
-		<span class="tags">
-
-
-	<a class='category' href='/blog/categories/unittest/'>UnitTest</a>, <a class='category' href='/blog/categories/xcode/'>Xcode</a>, <a class='category' href='/blog/categories/ios/'>iOS</a>
-
-
-</span>
-	    
-	    <span class="comments"><a href="/blog/2013/11/05/xcode-5-xia-de-dan-yuan-ce-shi/#disqus_thread">Comments</a></span>
-	    
-	</div>
-</article>
-
-
+	<a class="addthis_button_tweet"></a>
 	
-
-
-<article>
-  <h2 class="title"><a href="/blog/2013/07/12/use-node-apn-send-apple-push/">用node-apn发Apple Push</a></h2>
-	<div class="meta">
-		<span class="date">Jul 12</span>
-		<span class="tags">
-
-
-	<a class='category' href='/blog/categories/node-dot-js/'>Node.js</a>, <a class='category' href='/blog/categories/ios/'>iOS</a>
-
-
-</span>
-	    
-	    <span class="comments"><a href="/blog/2013/07/12/use-node-apn-send-apple-push/#disqus_thread">Comments</a></span>
-	    
-	</div>
-</article>
-
-
 	
-
-
-<article>
-  <h2 class="title"><a href="/blog/2013/01/21/iOSCrashReport/">iOS CrashReport</a></h2>
-	<div class="meta">
-		<span class="date">Jan 21</span>
-		<span class="tags">
-
-
-	<a class='category' href='/blog/categories/ios/'>iOS</a>
-
-
-</span>
-	    
-	    <span class="comments"><a href="/blog/2013/01/21/iOSCrashReport/#disqus_thread">Comments</a></span>
-	    
+	<a class="addthis_counter addthis_pill_style"></a>
 	</div>
-</article>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
 
 
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
 
     </div>
     <footer id="footer">
@@ -242,7 +201,10 @@
       var disqus_shortname = 'geforceleeoctopress';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://GeforceLee.github.io/blog/2013/11/08/ios-uizi-dong-hua-ce-shi/';
+        var disqus_url = 'http://GeforceLee.github.io/blog/2013/11/08/ios-uizi-dong-hua-ce-shi/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
